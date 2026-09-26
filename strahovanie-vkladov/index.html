@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Сколько положить в один банк, чтобы вклад вместе с процентами не вылез за лимит страхования 1,4 млн рублей.">
+<meta property="og:title" content="Калькулятор: сколько класть под страховку вкладов">
+<meta property="og:description" content="Ставка, срок, как платят проценты — и сумма, которую страховка вернёт целиком.">
+<title>Сколько класть под страховку вкладов</title>
+<link rel="icon" type="image/png" href="data:image/png;base64,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">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<style>
+:root{
+  --bg:#F3F7F6; --surface:#FFFFFF; --ink:#152628; --muted:#5A7072; --rule:#D3E0DE;
+  --accent:#188080; --accent-ink:#FFFFFF; --accent-soft:#E0EFED; --tax:#A8462F; --tax-soft:#F6E7E2;
+  --field:#FFFFFF; --focus:#188080;
+  --sans:"Onest",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0E1718; --surface:#152122; --ink:#E3EDEC; --muted:#93AAAB; --rule:#29393A;
+    --accent:#4DB3AC; --accent-ink:#0E1718; --accent-soft:#1B3333; --tax:#E58A73; --tax-soft:#3A2420;
+    --field:#0F1B1C; --focus:#4DB3AC;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0E1718; --surface:#152122; --ink:#E3EDEC; --muted:#93AAAB; --rule:#29393A;
+  --accent:#4DB3AC; --accent-ink:#0E1718; --accent-soft:#1B3333; --tax:#E58A73; --tax-soft:#3A2420;
+  --field:#0F1B1C; --focus:#4DB3AC;
+}
+*{box-sizing:border-box}
+html{color-scheme:light}
+@media (prefers-color-scheme: dark){html{color-scheme:dark}}
+body{margin:0}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;padding:0 16px}
+.wrap{max-width:1080px;margin:0 auto;padding-block:28px 48px;display:flex;flex-direction:column;gap:28px}
+header{display:flex;flex-direction:column;gap:10px}
+.brand{text-decoration:none;display:flex;align-items:center;gap:10px;color:var(--muted);font-size:14px}
+.mark{width:28px;height:28px;border-radius:7px;background:#188080;display:grid;place-items:center;color:#fff;font:700 22px/1 var(--sans);padding-top:5px}
+h1{font-size:clamp(26px,4.2vw,38px);line-height:1.15;font-weight:700;margin:0;text-wrap:balance;letter-spacing:-.01em}
+.lead{margin:0;color:var(--muted);max-width:62ch}
+.lead a{color:var(--accent);text-underline-offset:3px}
+.grid{display:grid;grid-template-columns:minmax(0,360px) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:820px){.grid{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:20px}
+form{display:flex;flex-direction:column;gap:16px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+label{display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500}
+label small{font-weight:400;color:var(--muted);font-size:12.5px;line-height:1.35}
+input{font:500 16px var(--mono);color:var(--ink);background:var(--field);border:1px solid var(--rule);border-radius:8px;padding:10px 12px;width:100%;min-width:0}
+input:focus-visible,button:focus-visible{outline:2px solid var(--focus);outline-offset:1px}
+fieldset{border:0;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+legend{font-size:14px;font-weight:500;padding:0;margin-bottom:6px}
+.seg{display:grid;grid-template-columns:1fr;gap:6px}
+.seg label{flex-direction:row;align-items:center;gap:10px;font-weight:400;border:1px solid var(--rule);border-radius:8px;padding:9px 12px;cursor:pointer}
+.seg input{width:auto;accent-color:var(--accent)}
+.seg label:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
+.sep{border-top:1px solid var(--rule);padding-top:14px;display:flex;flex-direction:column;gap:16px}
+.ylead{margin:0;font-size:12.5px;color:var(--muted);line-height:1.4}
+.empty{margin:0;padding:18px 20px;border:1px dashed var(--rule);border-radius:12px;color:var(--muted)}
+.out{display:flex;flex-direction:column;gap:20px}
+.err{color:var(--tax);font-size:14px;margin:0}
+.results{display:flex;flex-direction:column;gap:20px}
+.sum{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:520px){.sum{grid-template-columns:1fr}}
+.kpi{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:2px}
+.kpi span{font-size:13px;color:var(--muted)}
+.kpi b{font:500 clamp(22px,3vw,28px)/1.2 var(--mono);font-variant-numeric:tabular-nums}
+.kpi.main{background:var(--accent-soft);border-color:transparent}
+.kpi.main b{color:var(--accent)}
+.kpi.bad{background:var(--tax-soft);border-color:transparent}
+.kpi.bad b{color:var(--tax)}
+.hint{border-left:3px solid var(--tax);padding:4px 0 4px 14px;margin:0;max-width:70ch}
+.hint.ok{border-left-color:var(--accent)}
+.hint b{font-family:var(--mono);font-weight:500}
+.hint strong{font-weight:700}
+h2{font-size:18px;margin:0 0 10px;font-weight:700}
+.ledger{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.l{display:flex;justify-content:space-between;align-items:baseline;gap:16px;font-size:14.5px}
+.l > span:last-child{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right}
+.l.sub{padding-left:16px;font-size:13px;color:var(--muted)}
+.l.tot{border-top:1px solid var(--rule);padding-top:8px;margin-top:2px;font-weight:500}
+.l.badl > span:last-child{color:var(--tax);font-weight:500}
+@media (max-width:520px){.l{flex-direction:column;align-items:flex-start;gap:0}.l > span:last-child{text-align:left}.l.sub{padding-left:10px}}
+.ast{color:var(--accent);font-family:var(--mono);font-weight:500;margin-left:1px}
+.fine{font-size:13.5px;color:var(--muted);max-width:78ch}
+.fine ol{margin:0;padding-left:1.4em;display:flex;flex-direction:column;gap:6px}
+.fine li::marker{content:"*" counter(list-item) "  ";font-family:var(--mono);color:var(--accent)}
+.fine b{color:var(--ink);font-weight:500}
+.foot{font-size:13px;color:var(--muted);border-top:1px solid var(--rule);padding-top:16px;max-width:78ch}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <a class="brand" href="https://dzen.ru/snizu_melkim"><span class="mark" aria-hidden="true">*</span>Снизу мелким шрифтом · канал на Дзене</a>
+    <h1>Сколько положить в банк, чтобы страховка вернула всё</h1>
+    <p class="lead">Страховка вкладов возвращает до 1,4 млн рублей на человека в одном банке, и проценты входят в эту сумму. Введите ставку и срок: калькулятор покажет, сколько можно положить, чтобы вклад вместе с процентами не вылез за лимит до самого конца срока.</p>
+    <p class="lead">Если что-то непонятно, прочитайте <a id="article" href="https://dzen.ru/snizu_melkim">статью на Дзене</a>: там всё разобрано на примерах.</p>
+  </header>
+
+  <div class="grid">
+    <section class="panel" aria-label="Условия вклада">
+      <form id="f" novalidate>
+        <div class="row2">
+          <label for="rate">Ставка, % годовых
+            <input id="rate" inputmode="decimal" autocomplete="off">
+          </label>
+          <label for="term">Срок, месяцев
+            <input id="term" inputmode="numeric" autocomplete="off">
+          </label>
+        </div>
+        <fieldset>
+          <legend>Как платят проценты</legend>
+          <div class="seg">
+            <label><input type="radio" name="pay" value="end">В конце срока</label>
+            <label><input type="radio" name="pay" value="cap">Каждый месяц прибавляют к вкладу</label>
+            <label><input type="radio" name="pay" value="card">Каждый месяц на карту в другом банке</label>
+          </div>
+        </fieldset>
+        <div class="sep">
+          <label for="other">Уже лежит в этом же банке, руб.
+            <small>Другие вклады, карты, накопительные счета. Лимит один на всё в этом банке. Пустое поле — ничего нет.</small>
+            <input id="other" inputmode="numeric" autocomplete="off">
+          </label>
+          <label for="amount">Сколько хотите положить, руб.
+            <small>Необязательно. Калькулятор проверит, влезет ли вклад в лимит, и покажет, с какого месяца начнёт вылезать.</small>
+            <input id="amount" inputmode="numeric" autocomplete="off">
+          </label>
+        </div>
+        <p class="err" id="err" hidden></p>
+      </form>
+    </section>
+
+    <section class="results" aria-live="polite">
+      <p class="empty" id="empty">Заполните ставку и срок и выберите, как платят проценты. Расчёт появится здесь.</p>
+      <div class="out" id="out" hidden>
+        <div>
+          <h2>Итог</h2>
+          <div class="sum">
+            <div class="kpi main"><span>Можно положить, чтобы застраховано было всё</span><b id="k-max">—</b></div>
+            <div class="kpi" id="kpi-peak"><span id="k-peak-l">Будет на вкладе в худший день</span><b id="k-peak">—</b></div>
+            <div class="kpi" id="kpi-over"><span>Не застраховано в худший день</span><b id="k-over">—</b></div>
+          </div>
+        </div>
+        <p class="hint" id="hint" hidden></p>
+        <div>
+          <h2>Откуда эти цифры</h2>
+          <div class="ledger" id="steps"></div>
+        </div>
+        <div class="fine">
+          <h2>Мелким шрифтом</h2>
+          <ol>
+            <li><b>1,4 млн — на одного человека в одном банке</b> по всем вкладам и счетам вместе, включая карты и накопительные счета. В другом банке — свой лимит. Кредит в том же банке из страховки не вычитают.</li>
+            <li><b>Проценты входят в лимит</b>, если они начислены ко дню, когда у банка отозвали лицензию. После отзыва проценты больше не начисляются. Поэтому худший день — последний день срока: процентов набежало больше всего.</li>
+            <li><b>Расчёт помесячный:</b> месячный процент — годовая ставка, делённая на 12, без точного числа дней. «Уже лежит в этом банке» считается без процентов: если эти деньги тоже растут, запас меньше.</li>
+            <li><b>Проценты на карту в том же банке</b> копятся на ней и тоже входят в лимит. В этом случае выбирайте «в конце срока» — так расчёт будет честнее.</li>
+            <li><b>Деньги сверх лимита не пропадают</b>: они попадают в очередь кредиторов банка и возвращаются по мере продажи его имущества. По закрытым ликвидациям первая очередь получила в среднем <b id="f-asv">60%</b> (данные АСВ на <span id="f-asv-d">01.01.2026</span>). Это среднее, а не обещание: по годам начала ликвидации — от 45% до 100%.</li>
+            <li><b>Не застрахованы вообще:</b> депозитные сертификаты, деньги в доверительном управлении, вклады в зарубежных филиалах российских банков и некоторые другие. <b>Свои лимиты, отдельно от 1,4 млн:</b> до 2,8 млн по рублёвым сберегательным сертификатам больше чем на 3 года без права забрать досрочно; до 10 млн при особых обстоятельствах (продажа жилья, наследство, возмещение вреда, решение суда); с 2027 года до 10 млн по договорам жилищных сбережений.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <p class="foot">Расчёт на типовом случае, а не консультация. Закон о страховании вкладов № 177-ФЗ, статья 11; закон «О банках и банковской деятельности», статья 20; закон о банкротстве, статья 189.92. Данные обновлены <span id="upd"></span>.</p>
+</div>
+
+<script>
+/* ================================================================
+   ДАННЫЕ — единственное место, которое нужно обновлять.
+
+   limit      — лимит страхования на человека в одном банке, руб.
+                (177-ФЗ, ст. 11, ч. 2). Менять, только если изменят закон.
+   asvPct     — средний процент удовлетворения требований 1-й очереди
+                по завершённым ликвидациям (АСВ, таблица «Процент
+                удовлетворения требований кредиторов», строка ИТОГО).
+   asvDate    — на какую дату эта цифра.
+   Когда обновлять: раз в год, когда АСВ выложит таблицу на 1 января.
+   После любой правки — поменять дату в updated.
+   ================================================================ */
+const DATA = {
+  article: 'https://dzen.ru/snizu_melkim',   // ссылка на статью — заменить после публикации
+  updated: '26.09.2026',
+  limit: 1400000,
+  asvPct: 60,
+  asvDate: '01.01.2026'
+};
+
+(function(){
+  const $ = id => document.getElementById(id);
+  const fmt = n => Math.round(n).toLocaleString('ru-RU').replace(/ | /g,' ');
+  const rub = n => fmt(n) + ' ₽';
+  const num = s => { const v = parseFloat(String(s).replace(/\s| | /g,'').replace(',','.')); return isFinite(v) ? v : NaN; };
+  const monthsWord = m => {
+    const a = m % 10, b = m % 100;
+    if (a === 1 && b !== 11) return m + ' месяц';
+    if (a >= 2 && a <= 4 && (b < 12 || b > 14)) return m + ' месяца';
+    return m + ' месяцев';
+  };
+
+  $('upd').textContent = DATA.updated;
+  $('f-asv').textContent = DATA.asvPct + '%';
+  $('f-asv-d').textContent = DATA.asvDate;
+  const art = $('article'); art.href = DATA.article;
+
+  // Во сколько раз вырастет вклад к месяцу k (худший случай — отзыв в конце месяца k)
+  function growth(mode, r, k){
+    const mr = r / 100 / 12;
+    if (mode === 'end')  return 1 + mr * k;
+    if (mode === 'cap')  return Math.pow(1 + mr, k);
+    return 1 + mr;                     // card: за месяц набегает не больше одного месячного процента
+  }
+
+  function calc(){
+    const rate = num($('rate').value);
+    const term = num($('term').value);
+    const modeEl = document.querySelector('input[name="pay"]:checked');
+    const otherRaw = $('other').value.trim();
+    const amountRaw = $('amount').value.trim();
+    const other = otherRaw === '' ? 0 : num(otherRaw);
+    const amount = amountRaw === '' ? null : num(amountRaw);
+    const err = $('err');
+    err.hidden = true;
+
+    if (!(rate > 0) || !(term > 0) || !modeEl){
+      $('out').hidden = true; $('empty').hidden = false;
+      if ($('rate').value && !(rate > 0)) { err.textContent = 'Ставка должна быть больше нуля.'; err.hidden = false; }
+      else if ($('term').value && !(term > 0)) { err.textContent = 'Срок должен быть больше нуля.'; err.hidden = false; }
+      return;
+    }
+    if (rate > 100){ err.textContent = 'Проверьте ставку: больше 100% годовых.'; err.hidden = false; $('out').hidden = true; $('empty').hidden = false; return; }
+    if (isNaN(other) || other < 0){ err.textContent = 'В поле «Уже лежит в этом банке» — число или пусто.'; err.hidden = false; $('out').hidden = true; $('empty').hidden = false; return; }
+    if (amount !== null && (isNaN(amount) || amount <= 0)){ err.textContent = 'В поле «Сколько хотите положить» — число больше нуля или пусто.'; err.hidden = false; $('out').hidden = true; $('empty').hidden = false; return; }
+
+    const m = Math.round(term);
+    const mode = modeEl.value;
+    const G = growth(mode, rate, m);
+    const room = DATA.limit - other;
+    const max = room > 0 ? Math.floor(room / G + 1e-6) : 0;
+
+    $('empty').hidden = true; $('out').hidden = false;
+    $('k-max').textContent = rub(max);
+
+    const steps = $('steps'); steps.innerHTML = '';
+    const line = (a, b, cls) => { const d = document.createElement('div'); d.className = 'l' + (cls ? ' ' + cls : ''); d.innerHTML = '<span>' + a + '</span><span>' + b + '</span>'; steps.appendChild(d); };
+    const gTxt = G.toLocaleString('ru-RU', {maximumFractionDigits: 4});
+
+    line('Лимит страхования в одном банке', rub(DATA.limit));
+    if (other > 0) line('Минус то, что уже лежит в этом банке', '− ' + rub(other));
+    line('Свободно в лимите', rub(Math.max(room, 0)), 'tot');
+    if (mode === 'end')  line('За ' + monthsWord(m) + ' вклад вырастет в 1 + ' + String(rate).replace('.', ',') + '% × ' + m + '/12 раза', '× ' + gTxt, 'sub');
+    if (mode === 'cap')  line('За ' + monthsWord(m) + ' с ежемесячной капитализацией вклад вырастет в (1 + ' + String(rate).replace('.', ',') + '%/12)<sup>' + m + '</sup> раза', '× ' + gTxt, 'sub');
+    if (mode === 'card') line('Проценты уходят на карту каждый месяц, на вкладе копится не больше месячного процента', '× ' + gTxt, 'sub');
+    line('Можно положить: свободно в лимите ÷ ' + gTxt, rub(max), 'tot');
+
+    const hint = $('hint');
+    const kPeak = $('kpi-peak'), kOver = $('kpi-over');
+
+    if (room <= 0){
+      $('k-peak').textContent = '—'; $('k-over').textContent = '—';
+      kOver.classList.remove('bad');
+      hint.className = 'hint';
+      hint.innerHTML = 'Деньги, которые уже лежат в этом банке, занимают весь лимит. Всё, что вы положите сюда сверху, застраховано не будет.';
+      hint.hidden = false;
+      return;
+    }
+
+    if (amount === null){
+      $('k-peak').textContent = '—'; $('k-over').textContent = '—';
+      kOver.classList.remove('bad');
+      $('k-peak-l').textContent = 'Будет на вкладе в худший день';
+      hint.className = 'hint ok';
+      hint.innerHTML = 'Впишите сумму, которую хотите положить, — калькулятор проверит, влезет ли она в лимит до конца срока.';
+      hint.hidden = false;
+      return;
+    }
+
+    const peak = amount * G;
+    const over = Math.max(0, other + peak - DATA.limit);
+    $('k-peak-l').textContent = 'Будет на вкладе в худший день';
+    $('k-peak').textContent = rub(peak);
+    $('k-over').textContent = rub(over);
+    kOver.classList.toggle('bad', over > 0.5);
+
+    line('Ваш вклад к концу срока: ' + rub(amount) + ' × ' + gTxt, rub(peak));
+    if (other > 0) line('Вместе с тем, что уже лежит в банке', rub(peak + other));
+    if (over > 0.5) line('Сверх лимита', rub(over), 'badl');
+
+    if (over <= 0.5){
+      hint.className = 'hint ok';
+      hint.innerHTML = 'Влезает: даже в последний день срока вклад с процентами не больше лимита. Запас — <b>' + rub(DATA.limit - other - peak) + '</b>.';
+    } else {
+      let k = 0;
+      if (other + amount > DATA.limit) k = 0;
+      else { for (let i = 1; i <= m; i++){ if (other + amount * growth(mode, rate, i) > DATA.limit){ k = i; break; } } }
+      const when = k === 0 ? 'с первого дня' : (k === 1 ? 'уже к концу первого месяца' : 'с ' + k + '-го месяца');
+      const back = over * DATA.asvPct / 100;
+      hint.className = 'hint';
+      hint.innerHTML = 'Не влезает: вклад вылезает за лимит <strong>' + when + '</strong>. Если у банка отзовут лицензию в последний день срока, <b>' + rub(over) + '</b> страховка не вернёт. Эти деньги встанут в очередь кредиторов банка; по закрытым ликвидациям первая очередь получила в среднем ' + DATA.asvPct + '% — это было бы около <b>' + rub(back) + '</b>, и не сразу.';
+    }
+    hint.hidden = false;
+  }
+
+  ['rate','term','other','amount'].forEach(id => $(id).addEventListener('input', calc));
+  document.querySelectorAll('input[name="pay"]').forEach(el => el.addEventListener('change', calc));
+  $('f').addEventListener('submit', e => e.preventDefault());
+})();
+</script>
+</body>
+</html>
