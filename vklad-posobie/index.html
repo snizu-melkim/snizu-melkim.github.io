@@ -1,0 +1,506 @@
+<!doctype html>
+<!--
+  Калькулятор «Снизу мелким шрифтом»: проценты по вкладу и единое пособие (v2, 27.09.2026: даты открытия и закрытия вкладов, месяц заявления).
+  Сделан из шаблона канала (claude/snizu-melkim-shriftom-kalkulyator-shablon.html): стиль не менялся.
+  Меняющиеся данные — только в блоке DATA внизу. Обслуживание: в январе — прожиточный минимум
+  по России на новый год (pmRussia, pmChildRussia, pmYear) и updated; после публикации статьи — адрес в article.
+-->
+
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Проверьте, не превысят ли проценты по вкладам семьи прожиточный минимум — из-за этого могут отказать в едином пособии на детей. Учитывает способ выплаты процентов и показывает, сколько стоит отказ.">
+<meta property="og:title" content="Калькулятор: проценты по вкладу и единое пособие">
+<meta property="og:description" content="Пройдёт ли семья проверку по процентам и сколько стоит отказ.">
+<title>Проценты по вкладу и единое пособие — калькулятор</title>
+<link rel="canonical" href="https://snizu-melkim.github.io/vklad-posobie/">
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAIAAAAlC+aJAAADAklEQVR4nO2YX0haURzHz9UlZBMbNijS1EEgqXtpS93mU1TOQc16qLeBjG0waFBvY0VtMMbeRo0ayEbroT350ItirGD9sShmJPWgTbrIBQXdNQR183rdgxC3W8HgHDkE5/N0+d177vf3uedcj1yqcWICXGYkuBuAhQjghgjghgjghgjghgjghgjghgjghgjghgjg5tILXKnSfRfd7tsajbByb3r6VzqNPKhaM8Dm86LKcaFQjaBqCRyfFThTQUK1BDKn280Vi0Wer0YQGgFNfb2okjm9YM4+/jqZ7FptLXw0AoFbavXm8PCXwcE7Ot1JUTQDQp9mpXK8q+vnyMhTmw0+HcGv0EOzWUJRDoPBYTAcJJOerS1vOCwSqMxAu1r9xGp90NYmpSgAQJ/J9G55GTKdgvw2KqWo0Ojo9bo6YTGdy+0yTGdr60kllk6z+Xy7Wi0a7vR4QgwD0wDsDNzV60XdAwBUcrmwewDADZXq3OEukwlSAPYdcJnNMMN7TSYJRcHcAXYGPgWDB4mEVau1aLUqufw/RxU4LsQwwaOjTZqGah/+HRDS2tBg1WptOl2f0Xjuc92Ox79Ho0GaDjFMsVRCEoryv1A0lYqmUs1K5UWrgi+XZzY2/iJqvQLindjd0fHCbr/orKWlZcrlglwzIlAK9BmNbxwOYYVm2W+7u8JKr9E43t2NMBSZgF2vn3K5RItnzO9/HQiINrVnNttjiwVVLhqBm01Nn4eGaqRSYXEpElmKRNh8/v3Kiuj6yZ6e+wYDkmgEAjUSyczAwFWZTFj8w3Fjfn/l+OvOzkEyeSqVoqb7+xsVCvh0BAJFnh+YmwtEIsLix/V1mmUrx6Vy+ZXPJzx7mEoNzc8nsln4dDRLKJHNPlpYeO71/s7lAADxTGZqbU14QZCmF/f3AQAcz39YXe2cnd2Ox5FEo9wHvOHwj1jsrdPp3dsrcJzo7GQg0KhQvPT59hMJhKEod2IsXPrPKkQAN0QAN0QAN0QAN0QAN0QAN0QAN0QAN0QAN0QAN/8A+EUA30e4FwIAAAAASUVORK5CYII=">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<style>
+:root{
+  --bg:#F3F7F6; --surface:#FFFFFF; --ink:#152628; --muted:#5A7072; --rule:#D3E0DE;
+  --accent:#188080; --accent-ink:#FFFFFF; --accent-soft:#E0EFED; --tax:#A8462F; --tax-soft:#F6E7E2;
+  --field:#FFFFFF; --focus:#188080;
+  --sans:"Onest",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0E1718; --surface:#152122; --ink:#E3EDEC; --muted:#93AAAB; --rule:#29393A;
+    --accent:#4DB3AC; --accent-ink:#0E1718; --accent-soft:#1B3333; --tax:#E58A73; --tax-soft:#3A2420;
+    --field:#0F1B1C; --focus:#4DB3AC;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0E1718; --surface:#152122; --ink:#E3EDEC; --muted:#93AAAB; --rule:#29393A;
+  --accent:#4DB3AC; --accent-ink:#0E1718; --accent-soft:#1B3333; --tax:#E58A73; --tax-soft:#3A2420;
+  --field:#0F1B1C; --focus:#4DB3AC;
+}
+*{box-sizing:border-box}
+html{color-scheme:light}
+@media (prefers-color-scheme: dark){html{color-scheme:dark}}
+body{margin:0}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;padding:0 16px}
+.wrap{max-width:1080px;margin:0 auto;padding-block:28px 48px;display:flex;flex-direction:column;gap:28px}
+header{display:flex;flex-direction:column;gap:10px}
+.brand{text-decoration:none;display:flex;align-items:center;gap:10px;color:var(--muted);font-size:14px}
+.mark{width:28px;height:28px;border-radius:7px;background:#188080;display:grid;place-items:center;color:#fff;font:700 22px/1 var(--sans);padding-top:5px}
+h1{font-size:clamp(26px,4.2vw,38px);line-height:1.15;font-weight:700;margin:0;text-wrap:balance;letter-spacing:-.01em}
+.lead{margin:0;color:var(--muted);max-width:62ch}
+.lead a{color:var(--accent);text-underline-offset:3px}
+.grid{display:grid;grid-template-columns:minmax(0,360px) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:820px){.grid{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:20px}
+form{display:flex;flex-direction:column;gap:16px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+label{display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500}
+label small{font-weight:400;color:var(--muted);font-size:12.5px;line-height:1.35}
+input{font:500 16px var(--mono);color:var(--ink);background:var(--field);border:1px solid var(--rule);border-radius:8px;padding:10px 12px;width:100%;min-width:0}
+input:focus-visible,button:focus-visible{outline:2px solid var(--focus);outline-offset:1px}
+fieldset{border:0;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+legend{font-size:14px;font-weight:500;padding:0;margin-bottom:6px}
+.seg{display:grid;grid-template-columns:1fr;gap:6px}
+.seg label{flex-direction:row;align-items:center;gap:10px;font-weight:400;border:1px solid var(--rule);border-radius:8px;padding:9px 12px;cursor:pointer}
+.seg input{width:auto;accent-color:var(--accent)}
+.seg label:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
+.sep{border-top:1px solid var(--rule);padding-top:14px;display:flex;flex-direction:column;gap:16px}
+.ylead{margin:0;font-size:12.5px;color:var(--muted);line-height:1.4}
+.empty{margin:0;padding:18px 20px;border:1px dashed var(--rule);border-radius:12px;color:var(--muted)}
+.out{display:flex;flex-direction:column;gap:20px}
+.err{color:var(--tax);font-size:14px;margin:0}
+.results{display:flex;flex-direction:column;gap:20px}
+.sum{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:520px){.sum{grid-template-columns:1fr}}
+.kpi{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:2px}
+.kpi span{font-size:13px;color:var(--muted)}
+.kpi b{font:500 clamp(22px,3vw,28px)/1.2 var(--mono);font-variant-numeric:tabular-nums}
+.kpi.main{background:var(--accent-soft);border-color:transparent}
+.kpi.main b{color:var(--accent)}
+.kpi.bad{background:var(--tax-soft);border-color:transparent}
+.kpi.bad b{color:var(--tax)}
+.hint{border-left:3px solid var(--tax);padding:4px 0 4px 14px;margin:0;max-width:70ch}
+.hint.ok{border-left-color:var(--accent)}
+.hint b{font-family:var(--mono);font-weight:500}
+.hint strong{font-weight:700}
+h2{font-size:18px;margin:0 0 10px;font-weight:700}
+.ledger{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.l{display:flex;justify-content:space-between;align-items:baseline;gap:16px;font-size:14.5px}
+.l > span:last-child{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right}
+.l.sub{padding-left:16px;font-size:13px;color:var(--muted)}
+.l.tot{border-top:1px solid var(--rule);padding-top:8px;margin-top:2px;font-weight:500}
+.l.badl > span:last-child{color:var(--tax);font-weight:500}
+@media (max-width:520px){.l{flex-direction:column;align-items:flex-start;gap:0}.l > span:last-child{text-align:left}.l.sub{padding-left:10px}}
+.ast{color:var(--accent);font-family:var(--mono);font-weight:500;margin-left:1px}
+.fine{font-size:13.5px;color:var(--muted);max-width:78ch}
+.fine ol{margin:0;padding-left:1.4em;display:flex;flex-direction:column;gap:6px}
+.fine li::marker{content:"*" counter(list-item) "  ";font-family:var(--mono);color:var(--accent)}
+.fine b{color:var(--ink);font-weight:500}
+.foot{font-size:13px;color:var(--muted);border-top:1px solid var(--rule);padding-top:16px;max-width:78ch}
+details{border-top:1px solid var(--rule);padding-top:14px}
+summary{cursor:pointer;font-size:14px;font-weight:500;color:var(--accent)}
+details[open] summary{margin-bottom:14px}
+details .inner{display:flex;flex-direction:column;gap:16px}
+.tablebox{overflow-x:auto;background:var(--surface);border:1px solid var(--rule);border-radius:12px}
+table{border-collapse:collapse;width:100%;min-width:600px;font-size:14px}
+th,td{padding:9px 12px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--rule)}
+th:first-child,td:first-child{text-align:left}
+thead th{font-weight:500;color:var(--muted);font-size:12.5px;white-space:normal;vertical-align:bottom;line-height:1.3}
+td{font-family:var(--mono);font-variant-numeric:tabular-nums}
+td:first-child{font-family:var(--sans)}
+tr:last-child td{border-bottom:0}
+.foot a{color:var(--accent)}
+/* --- дополнения этого калькулятора (в стиле шаблона) --- */
+.dep{display:flex;flex-direction:column;gap:12px}
+.dep h3{font-size:15px;margin:0;font-weight:700}
+.chk{flex-direction:row;align-items:flex-start;gap:10px;font-weight:400;font-size:13.5px}
+.chk input{width:auto;margin-top:3px;accent-color:var(--accent)}
+.addbtn{align-self:flex-start;font:500 14px var(--sans);color:var(--accent);background:none;border:1px dashed var(--accent);border-radius:8px;padding:8px 12px;cursor:pointer}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <a class="brand" href="https://dzen.ru/snizu_melkim"><span class="mark" aria-hidden="true">*</span>Снизу мелким шрифтом · канал на Дзене</a>
+    <h1>Проценты по вкладу и единое пособие: пройдёт ли семья проверку</h1>
+    <p class="lead">Введите вклады семьи и прожиточный минимум своего региона. Калькулятор посчитает проценты за год так, как их видит Соцфонд, сравнит с порогом и покажет, сколько стоит отказ.</p>
+    <p class="lead">Если что-то непонятно, прочитайте <a id="article" href="https://dzen.ru/snizu_melkim">статью на Дзене</a>: там всё разобрано на примерах.</p>
+  </header>
+
+  <div class="grid">
+    <section class="panel" aria-label="Условия">
+      <form id="f" novalidate>
+        <label for="pm">Прожиточный минимум на душу населения в регионе, руб. в месяц
+          <small id="pmNote"></small>
+          <input id="pm" inputmode="numeric" autocomplete="off">
+        </label>
+        <label for="app">Месяц, когда подаёте заявление
+          <small id="appNote">Проценты проверяют за прошлый календарный год.</small>
+          <input id="app" type="month" autocomplete="off">
+        </label>
+
+        <div class="dep" id="dep1">
+          <h3>Вклад 1</h3>
+          <div class="row2">
+            <label for="s1">Сумма, руб.
+              <input id="s1" inputmode="numeric" autocomplete="off">
+            </label>
+            <label for="r1">Ставка, % годовых
+              <input id="r1" inputmode="decimal" autocomplete="off">
+            </label>
+          </div>
+          <fieldset>
+            <legend>Куда идут проценты</legend>
+            <div class="seg">
+              <label><input type="radio" name="m1" value="card">Раз в месяц на карту</label>
+              <label><input type="radio" name="m1" value="cap">Прибавляются к вкладу</label>
+              <label><input type="radio" name="m1" value="end">В конце срока</label>
+            </div>
+          </fieldset>
+          <div class="row2">
+            <label for="o1">Дата открытия
+              <input id="o1" type="date" autocomplete="off">
+            </label>
+            <label for="t1">Срок, месяцев
+              <small>Для «в конце срока» — обязательно.</small>
+              <input id="t1" inputmode="numeric" autocomplete="off">
+            </label>
+          </div>
+          <label for="c1">Дата закрытия, если закрыли раньше срока
+            <small>Необязательно.</small>
+            <input id="c1" type="date" autocomplete="off">
+          </label>
+        </div>
+
+        <div class="dep sep" id="dep2" hidden>
+          <h3>Вклад 2</h3>
+          <div class="row2">
+            <label for="s2">Сумма, руб.
+              <input id="s2" inputmode="numeric" autocomplete="off">
+            </label>
+            <label for="r2">Ставка, % годовых
+              <input id="r2" inputmode="decimal" autocomplete="off">
+            </label>
+          </div>
+          <fieldset>
+            <legend>Куда идут проценты</legend>
+            <div class="seg">
+              <label><input type="radio" name="m2" value="card">Раз в месяц на карту</label>
+              <label><input type="radio" name="m2" value="cap">Прибавляются к вкладу</label>
+              <label><input type="radio" name="m2" value="end">В конце срока</label>
+            </div>
+          </fieldset>
+          <div class="row2">
+            <label for="o2">Дата открытия
+              <input id="o2" type="date" autocomplete="off">
+            </label>
+            <label for="t2">Срок, месяцев
+              <small>Для «в конце срока» — обязательно.</small>
+              <input id="t2" inputmode="numeric" autocomplete="off">
+            </label>
+          </div>
+          <label for="c2">Дата закрытия, если закрыли раньше срока
+            <small>Необязательно.</small>
+            <input id="c2" type="date" autocomplete="off">
+          </label>
+        </div>
+
+        <div class="dep sep" id="dep3" hidden>
+          <h3>Вклад 3</h3>
+          <div class="row2">
+            <label for="s3">Сумма, руб.
+              <input id="s3" inputmode="numeric" autocomplete="off">
+            </label>
+            <label for="r3">Ставка, % годовых
+              <input id="r3" inputmode="decimal" autocomplete="off">
+            </label>
+          </div>
+          <fieldset>
+            <legend>Куда идут проценты</legend>
+            <div class="seg">
+              <label><input type="radio" name="m3" value="card">Раз в месяц на карту</label>
+              <label><input type="radio" name="m3" value="cap">Прибавляются к вкладу</label>
+              <label><input type="radio" name="m3" value="end">В конце срока</label>
+            </div>
+          </fieldset>
+          <div class="row2">
+            <label for="o3">Дата открытия
+              <input id="o3" type="date" autocomplete="off">
+            </label>
+            <label for="t3">Срок, месяцев
+              <small>Для «в конце срока» — обязательно.</small>
+              <input id="t3" inputmode="numeric" autocomplete="off">
+            </label>
+          </div>
+          <label for="c3">Дата закрытия, если закрыли раньше срока
+            <small>Необязательно.</small>
+            <input id="c3" type="date" autocomplete="off">
+          </label>
+        </div>
+
+        <button type="button" class="addbtn" id="add">+ Ещё вклад</button>
+
+        <details>
+          <summary>Пособие: сколько стоит отказ</summary>
+          <div class="inner">
+            <p class="ylead">Необязательно. Нужно, чтобы посчитать, сколько семья теряет при отказе.</p>
+            <div class="row2">
+              <label for="kids">Детей до 17 лет
+                <input id="kids" inputmode="numeric" autocomplete="off">
+              </label>
+              <label for="pmc">Прожиточный минимум для детей, руб.
+                <small id="pmcNote"></small>
+                <input id="pmc" inputmode="numeric" autocomplete="off">
+              </label>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Другие проценты за прошлый год</summary>
+          <div class="inner">
+            <p class="ylead">Накопительные счета, проценты на остаток по карте, вклады, которые не поместились выше. Сумму можно взять из справки банка о процентах за год.</p>
+            <label for="other">Проценты, руб. за год
+              <input id="other" inputmode="numeric" autocomplete="off">
+            </label>
+          </div>
+        </details>
+        <p class="err" id="err" hidden></p>
+      </form>
+    </section>
+
+    <section class="results" aria-live="polite">
+      <p class="empty" id="empty">Заполните прожиточный минимум и хотя бы один вклад: сумму, ставку, куда идут проценты и дату открытия. Расчёт появится здесь.</p>
+      <div class="out" id="out" hidden>
+        <div>
+          <h2>Итог</h2>
+          <div class="sum">
+            <div class="kpi main" id="k1box"><span id="k1lab">Проценты семьи за год</span><b id="k1">—</b></div>
+            <div class="kpi"><span>Порог — прожиточный минимум</span><b id="k2">—</b></div>
+            <div class="kpi bad"><span id="k3lab">Пособие за год при отказе — не получите</span><b id="k3">—</b></div>
+          </div>
+        </div>
+        <p class="hint" id="hint" hidden></p>
+        <div>
+          <h2>Откуда эти цифры</h2>
+          <div class="tablebox">
+            <table>
+              <thead><tr><th>Вклад</th><th>Сумма</th><th>Ставка</th><th>Куда идут проценты</th><th>Выплат в году проверки</th><th>Проценты в году проверки</th></tr></thead>
+              <tbody id="tb"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="ledger" id="alt"></div>
+        <div class="fine">
+          <h2>Мелким шрифтом</h2>
+          <ol>
+            <li><b>Какой год.</b> Соцфонд берёт проценты за прошлый календарный год (для заявления в 2026 году — за 2025-й), с января по декабрь, целиком — по сведениям банков в налоговую. Калькулятор считает только выплаты, которые попали в этот год: проценты — раз в месяц, в день открытия вклада; ставка не менялась.</li>
+            <li><b>Проценты считаются в году выплаты.</b> Если проценты прибавляются к вкладу, они засчитываются в том году, когда их прибавили. Вклад с выплатой в конце срока отдаёт все проценты в год выплаты, в остальные годы — ноль; такие проценты калькулятор считает без капитализации. Если вклад закрыли раньше срока, проценты за неполный месяц и проценты по сниженной ставке при досрочном закрытии не учтены.</li>
+            <li><b>Сравнение с порогом.</b> Проценты всей семьи за год сравниваются с прожиточным минимумом на душу населения за один месяц — в регионе, где вы живёте, на дату обращения. Размер семьи на порог не влияет.</li>
+            <li><b>Закрытый вклад.</b> Проценты по вкладу, закрытому не позже чем за 6 месяцев до месяца заявления, в эту проверку не идут, но остаются в расчёте среднего дохода семьи. Калькулятор считает так: месяц закрытия — не позже, чем месяц заявления минус 6 (заявление в октябре — закрыт не позже апреля). Дату закрытия он берёт из поля «Дата закрытия» или из даты открытия и срока.</li>
+            <li><b>Что не проверяется.</b> Средний доход семьи, имущество, доходы взрослых — это отдельные основания для отказа, калькулятор их не считает. Проценты по номинальным счетам детей под опекой не учитываются.</li>
+            <li><b>Цена отказа.</b> Пособие — 50, 75 или 100% прожиточного минимума для детей на каждого ребёнка, назначается на 12 месяцев. Какой размер положен именно вам, решает Соцфонд. После отказа можно подать снова, когда условия изменятся.</li>
+            <li><b>Заявления в январе.</b> Банки сообщают о процентах в налоговую до 1 февраля — данных за прошлый год может ещё не быть.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <details class="fine" style="max-width:78ch">
+    <summary>Документы, цитаты и расчёт примера из статьи</summary>
+    <ol style="padding-left:2.4em">
+      <li><b>Правила назначения единого пособия</b> — постановление Правительства РФ от 16.12.2022 № 2330, редакция с изменениями по 20.04.2026. Основание для отказа — п. 31, пп. «к» (редакция постановления от 28.11.2023 № 2010, с 01.12.2023): «наличие у заявителя и членов его семьи дохода, превышающего величину прожиточного минимума на душу населения, в виде процентов по вкладам (остаткам на счетах) в банках (за исключением случая, когда вклад (счет), по которому такой доход был получен, закрыт не позднее чем за 6 месяцев до месяца обращения…)». Проценты для этой проверки — «в полном объеме, полученном в течение налогового периода» — п. 50, абз. 1 (редакция постановления от 02.02.2024 № 107). Размер пособия 50 / 75 / 100% прожиточного минимума для детей — п. 7; срок назначения 12 месяцев — п. 14; документы о закрытии вклада — п. 52; сведения о процентах — из ФНС (перечень документов, строка 21).</li>
+      <li><b>Федеральный закон от 19.05.1995 № 81-ФЗ</b> «О государственных пособиях гражданам, имеющим детей», ст. 9, ч. 4–6: прожиточный минимум — на дату обращения, в регионе проживания.</li>
+      <li><b>Решение Верховного Суда РФ от 18.06.2025 № АКПИ25-221</b> и апелляционное определение от 28.10.2025 № АПЛ25-251: абзац первый п. 50 Правил признан не противоречащим закону; п. 31 «к» — «самостоятельное основание для отказа», проценты «учитываются за двенадцать календарных месяцев, что соответствует налоговому периоду»; дополнение п. 50 направлено «на установление единообразия в применении» Правил.</li>
+      <li><b>Какой год.</b> «Предыдущий календарный год — с января по декабрь» — Госуслуги для родителей (официальный канал Госуслуг), 13.03.2024. Календарный год; закрытый вклад остаётся в расчёте среднедушевого дохода; документы о закрытии — в течение 10 рабочих дней — отделение СФР по Самарской области, 09.12.2025.</li>
+      <li><b>Проценты — в году выплаты.</b> Банки не позднее 1 февраля сообщают в ФНС суммы выплаченных процентов за прошлый год — НК РФ, ст. 86, п. 4. Дата получения дохода — день выплаты, в том числе зачисления на счёт, — НК РФ, ст. 223; при капитализации — год зачисления (письмо ФНС от 18.01.2021 № БС-3-11/203@).</li>
+      <li><b>Прожиточный минимум на 2026 год.</b> По России: на душу населения — 18 939 ₽, для детей — 18 371 ₽. Москва — 25 342 и 21 903 ₽; Санкт-Петербург — 20 644 и 20 025 ₽.</li>
+      <li><b>Расчёт примера.</b> 100 000 ₽, 18% годовых, вклады открыты в декабре 2024 года и в 2025-м не закрывались — 12 выплат. Проценты раз в месяц на карту — 18 000 ₽; ежемесячная капитализация — 100 000 × ((1 + 0,18/12)¹² − 1) = 19 562 ₽. Порог ставки для 100 000 ₽: 18,94% без капитализации, 17,47% с ежемесячной. Двухлетний вклад с выплатой в конце — 36 000 ₽ в году выплаты. Ставка 18% — пример: средняя максимальная ставка ТОП-10 банков по рублёвым вкладам, по данным Банка России, в I декаде июля 2025 года — 17,913%, в I декаде апреля 2025 года — 20,052%.</li>
+      <li><b>Цена отказа.</b> 50% × 18 371 × 2 ребёнка × 12 месяцев = 220 452 ₽; при 100% — 440 904 ₽.</li>
+      <li><b>Таблица порога в статье.</b> Прожиточный минимум ÷ ставка, проценты без капитализации, суммы округлены до тысячи рублей.</li>
+    </ol>
+  </details>
+
+  <p class="foot">Расчёт на типовом случае, а не консультация и не оценка вашего права на пособие — решение принимает Соцфонд. Правила назначения и выплаты ежемесячного пособия в связи с рождением и воспитанием ребенка (постановление Правительства РФ от 16.12.2022 № 2330): п. 7, 14, 31 «к», 50; Федеральный закон № 81-ФЗ, ст. 9. Данные обновлены <span id="upd"></span>. <a href="../">Все калькуляторы</a></p>
+</div>
+
+<script>
+/* ================================================================
+   ДАННЫЕ — единственное место, которое нужно обновлять.
+   pmRussia / pmChildRussia — прожиточный минимум по России на pmYear
+   (на душу населения и для детей) — только как подсказка под полями.
+   Обновлять в январе, когда утверждён прожиточный минимум на новый год.
+   article — адрес статьи на Дзене, вписать после публикации.
+   ================================================================ */
+const DATA = {
+  article: 'https://dzen.ru/snizu_melkim',
+  updated: '27.09.2026',
+  pmYear: 2026,
+  pmRussia: 18939,
+  pmChildRussia: 18371
+};
+
+(function(){
+  const $ = id => document.getElementById(id);
+  const fmt = n => Math.round(n).toLocaleString('ru-RU').replace(/ | /g,' ');
+  const rub = n => fmt(n) + ' ₽';
+  const pct = (n,d=2) => n.toLocaleString('ru-RU',{minimumFractionDigits:0,maximumFractionDigits:d}) + '%';
+  const num = s => { const v = parseFloat(String(s).replace(/\s| | /g,'').replace(',','.')); return isFinite(v) ? v : NaN; };
+
+  $('upd').textContent = DATA.updated;
+  $('article').href = DATA.article;
+  $('pmNote').textContent = 'По России на ' + DATA.pmYear + ' год — ' + rub(DATA.pmRussia) + '. Для своего региона — на сайте правительства региона.';
+  $('pmcNote').textContent = 'По России на ' + DATA.pmYear + ' год — ' + rub(DATA.pmChildRussia) + '.';
+
+  const N = 3;
+  let shown = 1;
+  $('add').addEventListener('click', () => {
+    if (shown < N){ shown++; $('dep'+shown).hidden = false; }
+    if (shown >= N) $('add').hidden = true;
+  });
+
+  // месяц заявления по умолчанию — текущий (по дате устройства)
+  const now = new Date();
+  $('app').value = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0');
+
+  const MODE = { card:'раз в месяц на карту', cap:'прибавляются к вкладу', end:'в конце срока' };
+  const MON = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+  const parseDate = s => { if (!s) return null; const [y,m,d] = s.split('-').map(Number); return (y && m && d) ? new Date(y, m-1, d) : null; };
+  function addMonths(dt, k){
+    const y = dt.getFullYear(), m = dt.getMonth() + k, d = dt.getDate();
+    const last = new Date(y, m + 1, 0).getDate();
+    return new Date(y, m, Math.min(d, last));
+  }
+  const dstr = dt => dt.getDate() + ' ' + MON[dt.getMonth()] + ' ' + dt.getFullYear();
+
+  // проценты, выплаченные (зачисленные) в календарном году Y
+  function inYear(S, r, mode, open, term, close, Y){
+    // конец жизни вклада: закрытие досрочно или окончание срока
+    const maturity = term > 0 ? addMonths(open, term) : null;
+    let end = maturity;
+    if (close && (!end || close < end)) end = close;
+    if (mode === 'end'){
+      if (!maturity) return { sum:0, n:0, end };
+      const paid = (!close || close >= maturity) && maturity.getFullYear() === Y;
+      return { sum: paid ? S * r * term / 12 : 0, n: paid ? 1 : 0, end };
+    }
+    let bal = S, sum = 0, n = 0;
+    for (let k = 1; k <= 600; k++){
+      const pay = addMonths(open, k);
+      if (end && pay > end) break;
+      if (pay.getFullYear() > Y) break;
+      const p = bal * r / 12;
+      if (mode === 'cap') bal += p;
+      if (pay.getFullYear() === Y){ sum += p; n++; }
+    }
+    return { sum, n, end };
+  }
+
+  function calc(){
+    const err = $('err'); err.hidden = true; err.textContent = '';
+    const fail0 = msg => { err.textContent = msg; err.hidden = false; };
+    const show = on => { $('out').hidden = !on; $('empty').hidden = on; };
+    const pm = num($('pm').value);
+    const appV = $('app').value;
+    if (!appV){ show(false); return; }
+    const [ay, am] = appV.split('-').map(Number);
+    const Y = ay - 1;
+    const appIdx = ay * 12 + (am - 1);
+    $('appNote').textContent = 'Проценты проверят за ' + Y + ' год, с января по декабрь.';
+    $('k1lab').textContent = 'Проценты семьи за ' + Y + ' год';
+
+    const deps = [];
+    for (let i = 1; i <= N; i++){
+      if ($('dep'+i).hidden) continue;
+      const S = num($('s'+i).value), r = num($('r'+i).value);
+      const m = document.querySelector('input[name="m'+i+'"]:checked');
+      const open = parseDate($('o'+i).value), close = parseDate($('c'+i).value);
+      const term = num($('t'+i).value);
+      const any = $('s'+i).value || $('r'+i).value || m || $('o'+i).value;
+      if (!any) continue;
+      if (!(S > 0) || !(r >= 0) || !m || !open) continue;
+      if (m.value === 'end' && !(term > 0)){ fail0('Вклад ' + i + ': укажите срок в месяцах — проценты в конце срока зависят от него.'); continue; }
+      if (close && close < open){ fail0('Вклад ' + i + ': дата закрытия раньше даты открытия.'); continue; }
+      deps.push({ i, S, r:r/100, mode:m.value, open, close, term: term > 0 ? term : 0 });
+    }
+    const other = num($('other').value) > 0 ? num($('other').value) : 0;
+    if (!(pm > 0) || (deps.length === 0 && other === 0)){ show(false); return; }
+
+    let total = 0;
+    const tb = $('tb'); tb.innerHTML = '';
+    deps.forEach(d => {
+      const res = inYear(d.S, d.r, d.mode, d.open, d.term, d.close, Y);
+      d.inc = res.sum;
+      // правило 6 месяцев: закрыт (досрочно или по сроку) не позже месяца заявления минус 6
+      d.excl = !!(res.end && (res.end.getFullYear()*12 + res.end.getMonth()) <= appIdx - 6);
+      if (!d.excl) total += d.inc;
+      const how = MODE[d.mode] + (d.term ? ', ' + fmt(d.term) + ' мес.' : '');
+      const note = d.excl ? ' — закрыт ' + dstr(res.end) + ', не в проверке' : '';
+      const tr = document.createElement('tr');
+      tr.innerHTML = '<td>Вклад ' + d.i + note + '</td><td>' + rub(d.S) + '</td><td>' + pct(d.r*100) + '</td><td>' + how + '</td><td>' + res.n + '</td><td>' + rub(d.inc) + '</td>';
+      tb.appendChild(tr);
+    });
+    if (other > 0){
+      total += other;
+      const tr = document.createElement('tr');
+      tr.innerHTML = '<td>Другие проценты</td><td>—</td><td>—</td><td>—</td><td>—</td><td>' + rub(other) + '</td>';
+      tb.appendChild(tr);
+    }
+    const trT = document.createElement('tr');
+    trT.innerHTML = '<td><b>Всего в проверке</b></td><td></td><td></td><td></td><td></td><td><b>' + rub(total) + '</b></td>';
+    tb.appendChild(trT);
+
+    show(true);
+    const fail = total > pm;
+    $('k1').textContent = rub(total);
+    $('k1box').className = 'kpi ' + (fail ? 'bad' : 'main');
+    $('k2').textContent = rub(pm);
+
+    const kids = num($('kids').value), pmc = num($('pmc').value);
+    let costTxt = '';
+    if (kids > 0 && pmc > 0){
+      const lo = pmc * 0.5 * kids * 12, hi = pmc * kids * 12;
+      $('k3').textContent = 'от ' + rub(lo);
+      $('k3lab').textContent = fail ? 'Пособие за год, которое не получите' : 'Пособие за год, если бы отказали';
+      costTxt = ' Пособие на ' + fmt(kids) + ' ' + (kids == 1 ? 'ребёнка' : 'детей') + ' за год — от <b>' + rub(lo) + '</b> до <b>' + rub(hi) + '</b>, в зависимости от размера (50–100%).';
+    } else {
+      $('k3').textContent = '—';
+      $('k3lab').textContent = 'Цена отказа — укажите детей ниже';
+    }
+
+    const lastClose = new Date(ay, am - 1 - 6, 1);
+    const hint = $('hint'); hint.hidden = false;
+    if (fail){
+      hint.className = 'hint';
+      hint.innerHTML = '<strong>Проценты за ' + Y + ' год выше порога на ' + rub(total - pm) + '.</strong> По этому основанию Соцфонд откажет, даже если по доходу семья проходит.' + costTxt + ' Основание не применяют к вкладу, закрытому не позже ' + MON[lastClose.getMonth()].replace(/я$/,'я') + ' ' + lastClose.getFullYear() + ' года (за 6 месяцев до месяца заявления).';
+    } else {
+      hint.className = 'hint ok';
+      hint.innerHTML = '<strong>Проценты за ' + Y + ' год ниже порога на ' + rub(pm - total) + '.</strong> По проверке процентов отказа нет. Проценты всё равно войдут в расчёт среднего дохода семьи.' + (costTxt ? costTxt.replace('Пособие на', 'Для сравнения: пособие на') : '');
+    }
+
+    // тот же вклад при другом способе выплаты процентов (те же даты)
+    const alt = $('alt'); alt.innerHTML = '';
+    const d0 = deps.find(d => !d.excl);
+    if (d0){
+      const rows = [['<b>Вклад ' + d0.i + ' при другом способе выплаты — проценты за ' + Y + ' год</b>', '']];
+      ['card','cap'].forEach(m => rows.push(['Проценты ' + MODE[m], rub(inYear(d0.S, d0.r, m, d0.open, d0.term, d0.close, Y).sum)]));
+      if (d0.term) rows.push(['Проценты в конце срока', rub(inYear(d0.S, d0.r, 'end', d0.open, d0.term, d0.close, Y).sum)]);
+      rows.push(['Порог вклада, пролежавшего весь год, при ставке ' + pct(d0.r*100) + ': проценты на карту', d0.r > 0 ? rub(pm / d0.r) : '—']);
+      rows.push(['То же, проценты прибавляются к вкладу', d0.r > 0 ? rub(pm / (Math.pow(1 + d0.r/12, 12) - 1)) : '—']);
+      alt.innerHTML = rows.map((r,k) => '<div class="l' + (k ? ' sub' : '') + '"><span>' + r[0] + '</span><span>' + r[1] + '</span></div>').join('');
+      alt.hidden = false;
+    } else alt.hidden = true;
+  }
+
+  calc();
+  document.querySelectorAll('#f input').forEach(el => el.addEventListener(el.type === 'radio' || el.type === 'date' || el.type === 'month' ? 'change' : 'input', calc));
+  $('f').addEventListener('submit', e => e.preventDefault());
+})();
+</script>
+</body>
+</html>
