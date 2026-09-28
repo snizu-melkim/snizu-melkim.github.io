@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Сколько накопительный счёт реально даст за год: приветственная ставка, надбавки, минимальный или ежедневный остаток, снятия, подписка.">
+<meta property="og:title" content="Калькулятор накопительного счёта: доход за год">
+<meta property="og:description" content="Реклама обещает «до 14%». Посчитайте, сколько выйдет за 12 месяцев на ваших условиях.">
+<title>Сколько накопительный счёт даст за год</title>
+<link rel="canonical" href="https://snizu-melkim.github.io/nakopitelnyj-schet/">
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAIAAAAlC+aJAAAG10lEQVR42u1aXWwc1RU+5965s7Oz69lkHTexE8dJ2iRIJDL5UTCqLCGDiFI3Fqik1GqrWvxIVEIqDzzkAamR+gAPiIc+FEptFUUgQQxEUUARaVIRDMYgosaRUiM78U+irOvE0dq7Xu/uzNx7+nBja2JswLv2mkh7NU8798zc797znfOdM4vrjhyBu3kwuMtHGUAZQBlAGUAZQBlAGUAZQBlAGcDKDaP4RyAAY4yIFmeFqIgWa7X0ABDAUyqbzxuM0WKsfKXCQojFWC09AL2OSts+8sgjNbGYIkLE77UiIoY4mkodOX16PJMRnBdzDkUBYIyls9lD9fW/2bWrAPPu4eE3enrWRCL+SgFQRBWh0L8vX+7s7a12HALAgIszRE9KABCcB91dT/tfOn1mYCAaCsniaIBFFvWaAznP44zdQVClplz3J9EoAoxNTUVMk99JdKmUteIc0NspOA9xTneeDEN85eDBlnvvBcQPL1368+nTUikWYAgCKIDioxCPPvhg8ZGUAhdjLJXNvtzc/ExDQzQUiprm7g0bVoXDJy5dCguhiGZn/hgTGQJ4UlZVVDy2c6dUavZ6dMeOtRUVrpQISzyKBcAQg44BiIooLITBGGdM3+WMGYyFhSAiCEyea1tiAPrdU66bcV0ACJJ4Xs8O/qgnZ1x3ynVnH1VSEjPEnO9zxH21tQRwMZFI5/OrwuEfBBtxIpu1hdhbW4sAvYmES2QZhiqI0EbBq69xnH8cOtRQVwcAX1279vLZsx/391uGYXKOC9DDYCzreTnf379t2+GHHtpXWwsAPSMjz3R2JlKpwjAU6EKelK+2tDTU1UmlCGBfbe0HbW1HW1t/Wll5M5Pxv6UpENEnujk19bPKyqOtrR+0temjk0o11NW92tKiU14pTgARXSnXx2L3b9woiRgiAuid+9XOnQfuueevXV3vXLjgKxW08pWyhfjLgQN/amy0hdDzNYkl0f0bN66PxQrTRYt3ISKGOO26054XDYUUEZ8JJlIpW4jDTU1/2LvXFkKj1UZhw/joqaeqHUdPm2W81n/TnjftugwRSuBCOvWOZzKvdXfrEKm9SMcW7RXVjhMWImhlCVHtOHqmXj3NIGGIr3V3397+0mRiIrIM4/OhodFUqr6mJmZZCKCVAgIwRJpPVxMRYwxnhJD2n0Qq9eKpU2/09OjDLKmUMA3js+Hh9y9eRMRdNTWC8yBP5iVPMI65vv+37u5n33vvk8FBx7IKVhaFAyCAqGlOu+6HfX1nBgbWx2Kb4nFcYPXBc5BE/+rvf7qz882vvwYApzhFXZSYU0ScsVWWdeXWrX/29EQs6+ebNtHCGBQRArxy7lzb22/fymbXRqM0E8FWBgBnTBHdzGQ2x+MvNTf/fs8eyzC+QxdoYDvWrdtaVdV348bViQnLMPjiGwJLA4AjTuZyBud/fOCBvz/+eOOWLZYQ31sTI6IlxO4NGw7V1xPRf65fn8rnw0KUmgMMMZ3P79++veOJJ367e3fENIP1SrC2DHIGA+VYRSj08LZt+7dvvz45+d8bNyzDoJIB4IxN5nK/27PnaGvr2ooKqZRuDUEgRM6rhWZv6VCriKod59f33Xd1YuKra9ds06TSaCFfKceyDjc1EYCvFGc6AYCutjhjWc9zfT9o4kqZ9Tyd6TRrEZEz5itFAIebmhzLmqM+lgsAIkqlVofDcdsmIo54OzjOJLK3zp//RXt7Op/Xv+tNzeTzv+zoeOv8eZ3ppNJggSMSUdy2V4fDUilcfGGweClBJDhPpFJ9Y2MM0VdKv5gz9sXIyMGOjiePHbuaTBqBvAYABudXk8kn3333YEfHFyMj+tCkUr5SDLFvbCyRShXW4SrEhfQuvXDy5HAyKTjnjI0kk88dP97c3v7p0FClbVu6epyjPoSIRyKfDg01t7c/d/z4SDLJGROcDyeTL5w8CfPxfrkKGkVkC3FxdPTh119v3LKFiLqGhhKTk6ttmzOW87x5c5Mikko5liWV6vjyy1PffNO4eTMidg0OjmcyEdMsXUWmVxMxzVQud+zCBQCIhEJrIhHtTt9tqL1/TSSSzuc7e3sBIGKaBa++qMaWIjI4X23bAKCUCsYQXNjxZuOYgXjblkitVG9UK7NvL9SVUhFJIpyBSkRzmkK6HvjRNbaIyOR8LJ3+5MoVjogACMARzw0OjqZSZnGd9GVsLc7JFAyxa3Bwa1VVXTyuiM4MDDx/4oSvFGNL/0ULl+MvZ4joSelLubWqCgH6x8c5omkYS779sCTfyBZKdibnl8fHAcAWgpaiEV06ALdFBIAu7dXyLH15AcyGWljmUf7QXQZQBlAGUAZQBnBXj/8DfoN+zy2M32gAAAAASUVORK5CYII=">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<style>
+:root{
+  --bg:#F3F7F6; --surface:#FFFFFF; --ink:#152628; --muted:#5A7072; --rule:#D3E0DE;
+  --accent:#188080; --accent-ink:#FFFFFF; --accent-soft:#E0EFED; --tax:#A8462F; --tax-soft:#F6E7E2;
+  --field:#FFFFFF; --focus:#188080;
+  --sans:"Onest",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0E1718; --surface:#152122; --ink:#E3EDEC; --muted:#93AAAB; --rule:#29393A;
+    --accent:#4DB3AC; --accent-ink:#0E1718; --accent-soft:#1B3333; --tax:#E58A73; --tax-soft:#3A2420;
+    --field:#0F1B1C; --focus:#4DB3AC;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0E1718; --surface:#152122; --ink:#E3EDEC; --muted:#93AAAB; --rule:#29393A;
+  --accent:#4DB3AC; --accent-ink:#0E1718; --accent-soft:#1B3333; --tax:#E58A73; --tax-soft:#3A2420;
+  --field:#0F1B1C; --focus:#4DB3AC;
+}
+*{box-sizing:border-box}
+html{color-scheme:light}
+@media (prefers-color-scheme: dark){html{color-scheme:dark}}
+body{margin:0}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;padding:0 16px}
+.wrap{max-width:1080px;margin:0 auto;padding-block:28px 48px;display:flex;flex-direction:column;gap:28px}
+header{display:flex;flex-direction:column;gap:10px}
+.brand{text-decoration:none;display:flex;align-items:center;gap:10px;color:var(--muted);font-size:14px}
+.mark{width:28px;height:28px;border-radius:7px;background:#188080;display:grid;place-items:center;color:#fff;font:700 22px/1 var(--sans);padding-top:5px}
+h1{font-size:clamp(26px,4.2vw,38px);line-height:1.15;font-weight:700;margin:0;text-wrap:balance;letter-spacing:-.01em}
+.lead{margin:0;color:var(--muted);max-width:62ch}
+.lead a{color:var(--accent);text-underline-offset:3px}
+.grid{display:grid;grid-template-columns:minmax(0,360px) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:820px){.grid{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:20px}
+form{display:flex;flex-direction:column;gap:16px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+label{display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500}
+label small{font-weight:400;color:var(--muted);font-size:12.5px;line-height:1.35}
+input{font:500 16px var(--mono);color:var(--ink);background:var(--field);border:1px solid var(--rule);border-radius:8px;padding:10px 12px;width:100%;min-width:0}
+input:focus-visible,button:focus-visible{outline:2px solid var(--focus);outline-offset:1px}
+fieldset{border:0;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+legend{font-size:14px;font-weight:500;padding:0;margin-bottom:6px}
+.seg{display:grid;grid-template-columns:1fr;gap:6px}
+.seg label{flex-direction:row;align-items:center;gap:10px;font-weight:400;border:1px solid var(--rule);border-radius:8px;padding:9px 12px;cursor:pointer}
+.seg input{width:auto;accent-color:var(--accent)}
+.seg label:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
+.sep{border-top:1px solid var(--rule);padding-top:14px;display:flex;flex-direction:column;gap:16px}
+.ylead{margin:0;font-size:12.5px;color:var(--muted);line-height:1.4}
+.empty{margin:0;padding:18px 20px;border:1px dashed var(--rule);border-radius:12px;color:var(--muted)}
+.out{display:flex;flex-direction:column;gap:20px}
+.err{color:var(--tax);font-size:14px;margin:0}
+.results{display:flex;flex-direction:column;gap:20px}
+.sum{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:520px){.sum{grid-template-columns:1fr}}
+.kpi{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:2px}
+.kpi span{font-size:13px;color:var(--muted)}
+.kpi b{font:500 clamp(22px,3vw,28px)/1.2 var(--mono);font-variant-numeric:tabular-nums}
+.kpi.main{background:var(--accent-soft);border-color:transparent}
+.kpi.main b{color:var(--accent)}
+.kpi.bad{background:var(--tax-soft);border-color:transparent}
+.kpi.bad b{color:var(--tax)}
+.hint{border-left:3px solid var(--tax);padding:4px 0 4px 14px;margin:0;max-width:70ch}
+.hint.ok{border-left-color:var(--accent)}
+.hint b{font-family:var(--mono);font-weight:500}
+.hint strong{font-weight:700}
+h2{font-size:18px;margin:0 0 10px;font-weight:700}
+.ledger{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.l{display:flex;justify-content:space-between;align-items:baseline;gap:16px;font-size:14.5px}
+.l > span:last-child{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right}
+.l.sub{padding-left:16px;font-size:13px;color:var(--muted)}
+.l.tot{border-top:1px solid var(--rule);padding-top:8px;margin-top:2px;font-weight:500}
+.l.badl > span:last-child{color:var(--tax);font-weight:500}
+@media (max-width:520px){.l{flex-direction:column;align-items:flex-start;gap:0}.l > span:last-child{text-align:left}.l.sub{padding-left:10px}}
+.ast{color:var(--accent);font-family:var(--mono);font-weight:500;margin-left:1px}
+.fine{font-size:13.5px;color:var(--muted);max-width:78ch}
+.fine ol{margin:0;padding-left:1.4em;display:flex;flex-direction:column;gap:6px}
+.fine li::marker{content:"*" counter(list-item) "  ";font-family:var(--mono);color:var(--accent)}
+.fine b{color:var(--ink);font-weight:500}
+.foot{font-size:13px;color:var(--muted);border-top:1px solid var(--rule);padding-top:16px;max-width:78ch}
+details{border-top:1px solid var(--rule);padding-top:14px}
+summary{cursor:pointer;font-size:14px;font-weight:500;color:var(--accent)}
+details[open] summary{margin-bottom:14px}
+details .inner{display:flex;flex-direction:column;gap:16px}
+.tablebox{overflow-x:auto;background:var(--surface);border:1px solid var(--rule);border-radius:12px}
+table{border-collapse:collapse;width:100%;min-width:600px;font-size:14px}
+th,td{padding:9px 12px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--rule)}
+th:first-child,td:first-child{text-align:left}
+thead th{font-weight:500;color:var(--muted);font-size:12.5px;white-space:normal;vertical-align:bottom;line-height:1.3}
+td{font-family:var(--mono);font-variant-numeric:tabular-nums}
+td:first-child{font-family:var(--sans)}
+tr:last-child td{border-bottom:0}
+.foot a{color:var(--accent)}
+.check ul{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:8px}
+.check p{margin:0 0 10px}
+.check li::marker{content:"— ";color:var(--accent)}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <a class="brand" href="https://dzen.ru/snizu_melkim"><span class="mark" aria-hidden="true">*</span>Снизу мелким шрифтом · канал на Дзене</a>
+    <h1>Сколько накопительный счёт даст за год</h1>
+    <p class="lead">Рекламная ставка обычно действует два месяца и при условиях. Введите ставки из тарифа своего банка — калькулятор посчитает доход за 12 месяцев и реальную ставку за год, учтёт снятия, способ начисления и подписку.</p>
+    <p class="lead">Если что-то непонятно, прочитайте <a id="article" href="https://dzen.ru/snizu_melkim">статью на Дзене</a>: там всё разобрано на примерах.</p>
+  </header>
+
+  <div class="grid">
+    <section class="panel" aria-label="Условия счёта">
+      <form id="f" novalidate>
+        <label for="amount">Сумма на счёте, руб.
+          <input id="amount" inputmode="numeric" autocomplete="off">
+        </label>
+        <div class="row2">
+          <label for="wrate">Приветственная ставка, %
+            <small>Обычно это цифра из рекламы. Нет — оставьте пустым.</small>
+            <input id="wrate" inputmode="decimal" autocomplete="off">
+          </label>
+          <label for="wmonths">Сколько месяцев
+            <small>Сколько действует приветственная ставка.</small>
+            <input id="wmonths" inputmode="numeric" autocomplete="off">
+          </label>
+        </div>
+        <label for="rate">Ставка после приветственной, % годовых
+          <small>Базовая плюс те надбавки, условия которых вы точно выполните.</small>
+          <input id="rate" inputmode="decimal" autocomplete="off">
+        </label>
+        <fieldset>
+          <legend>Как банк считает месяцы приветственной ставки</legend>
+          <div class="seg">
+            <label><input type="radio" name="cal" value="open">От даты открытия</label>
+            <label><input type="radio" name="cal" value="cal">Календарные: первый — до конца месяца пополнения</label>
+          </div>
+        </fieldset>
+        <label for="open" id="open-l" hidden>Дата первого пополнения
+          <input id="open" type="date" min="2024-01-01" max="2045-12-31">
+        </label>
+        <fieldset>
+          <legend>На какой остаток начисляют проценты</legend>
+          <div class="seg">
+            <label><input type="radio" name="base" value="daily">На ежедневный остаток</label>
+            <label><input type="radio" name="base" value="min">На минимальный остаток за месяц</label>
+          </div>
+        </fieldset>
+        <details>
+          <summary>Снятия, лимит, подписка</summary>
+          <div class="inner">
+            <div class="row2">
+              <label for="wd">Снимаю на время, руб.
+                <small>Каждый месяц, потом возвращаю.</small>
+                <input id="wd" inputmode="numeric" autocomplete="off">
+              </label>
+              <label for="wdd">На сколько дней
+                <small>В месяц.</small>
+                <input id="wdd" inputmode="numeric" autocomplete="off">
+              </label>
+            </div>
+            <div class="row2">
+              <label for="lim">Лимит суммы, руб.
+                <small>Сверх него — другая ставка. Пусто — лимита нет.</small>
+                <input id="lim" inputmode="numeric" autocomplete="off">
+              </label>
+              <label for="limr">Ставка сверх лимита, %
+                <small>Пусто — 0,01%.</small>
+                <input id="limr" inputmode="decimal" autocomplete="off">
+              </label>
+            </div>
+            <div class="row2">
+              <label for="sub">Подписка, руб. в год
+                <input id="sub" inputmode="numeric" autocomplete="off">
+              </label>
+              <label for="subr">Надбавка за неё, %
+                <input id="subr" inputmode="decimal" autocomplete="off">
+              </label>
+            </div>
+            <p class="ylead">Надбавку за подписку не включайте в ставку выше — калькулятор посчитает её отдельно, после приветственной ставки.</p>
+          </div>
+        </details>
+        <p class="err" id="err" hidden></p>
+      </form>
+    </section>
+
+    <section class="results" aria-live="polite">
+      <p class="empty" id="empty">Заполните сумму и ставку после приветственной, выберите, на какой остаток начисляют проценты. Расчёт появится здесь.</p>
+      <div class="out" id="out" hidden>
+        <div>
+          <h2>Итог за 12 месяцев</h2>
+          <div class="sum">
+            <div class="kpi main"><span>Доход за год</span><b id="k-inc">—</b></div>
+            <div class="kpi"><span>Реальная ставка за год</span><b id="k-eff">—</b></div>
+            <div class="kpi" id="kpi-cmp"><span id="k-cmp-l">Против приветственной</span><b id="k-cmp">—</b></div>
+          </div>
+        </div>
+        <p class="hint" id="hint" hidden></p>
+        <div>
+          <h2>По месяцам</h2>
+          <div class="tablebox">
+            <table>
+              <thead><tr><th>Месяц</th><th>Дней</th><th>Ставка</th><th>На какую сумму</th><th>Проценты</th><th>На счёте в конце</th></tr></thead>
+              <tbody id="tb"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="fine">
+          <h2>Мелким шрифтом</h2>
+          <ol>
+            <li><b>Ставки весь год не меняются.</b> В жизни банк вправе изменить ставку по накопительному счёту сам — это пункт общих условий. Фиксированная ставка на срок — только у вклада.</li>
+            <li><b>Проценты прибавляются к счёту в конце каждого месяца</b> и дальше тоже приносят проценты. Дни — по календарю, 365 в году.</li>
+            <li><b>Минимальный остаток за месяц</b> — самая маленькая сумма на счёте за весь месяц: снятие на один день уменьшает проценты за весь месяц. У некоторых банков «ежедневный минимальный остаток» — это минимум за каждый день; тогда выбирайте «на ежедневный остаток».</li>
+            <li><b>Подписка окупается,</b> если сумма на счёте больше, чем цена подписки за год, делённая на надбавку. Надбавку считаем только после приветственной ставки — так её дают банки. Прочие бонусы подписки не учтены.</li>
+            <li><b>Не учтено:</b> правила вроде «если в какой-то день на счёте меньше 1 000 рублей, процентов за месяц не будет», пропуск процентов при закрытии счёта посреди месяца, налог на проценты. Проценты по накопительному счёту входят в необлагаемый порог налога вместе с процентами по вкладам.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+  </div>
+
+
+  <section class="fine check" aria-label="Для тех, кто проверяет">
+    <h2>Для тех, кто проверяет</h2>
+    <p>Расчёты к статье «Накопительный счёт „до 14,2%“: посчитал, сколько он даст за год». Банки в статье обезличены.</p>
+    <ul>
+      <li><b>Банк Б</b> — «Сборник условий, тарифов и процентных ставок для физических лиц по депозитам», тарифный лист накопительного счёта, действует с 01.09.2026, пакет услуг без ВИП-статуса. Приветственная ставка 14,2% (на минимальный остаток) и 13,2% (на ежедневный) — «с 1-го по 2-й календарный месяц», первый месяц — со дня после пополнения до конца этого месяца; только если за 180 дней на накопительных счетах и вкладах в банке было меньше 1 000 рублей (п. 18, сноски 1–2). Базовая ставка 6% / 5%; надбавки: +2% за зарплату, пенсию или подписку, +1% / +4% за оплаты от 20 000 / 50 000 рублей, +1–1,5% за уровень программы лояльности (сноски 4–6). Если в какой-то день на счёте меньше 1 000 рублей — при минимальном остатке процентов нет за весь месяц. При закрытии посреди месяца проценты за этот месяц не начисляются. Рекламная ставка «до 14,2%» — сайт банка (26.09.2026).</li>
+      <li><b>Банк А</b> — «Общие условия открытия и совершения операций по счетам» (действуют с 25.09.2026): право менять ставку — п. 21, извещение за два рабочих дня — п. 52, ежедневный минимальный остаток (минимум за каждый день, а не за месяц) — п. 19, максимальная сумма — п. 18. Страница накопительного счёта (26.09.2026): базовая 6,5% (до 29.04.2026 — 7%), приветственная +6% на 2 месяца для первого счёта, надбавки +3,5% за траты от 50 000 рублей, +1,5% за покупки у партнёров, +1% за подписку; сверх 1 млн рублей — 0,01%.</li>
+      <li><b>Расчёт за год:</b> 300 000 рублей, открыт 1 октября 2026 года, проценты за каждый день, прибавляются к счёту раз в месяц. Банк Б, минимальный остаток, без снятий и надбавок — 22 790 рублей (7,60%); на ежедневный остаток — 19 596 (6,53%); не «новые деньги» — 18 504 (6,17%); со всеми надбавками — до 43 494 (14,50%). Банк А, первый счёт, без надбавок — 23 292 (7,76%); не первый — 20 092 (6,70%); со всеми надбавками — 39 725 (13,24%). Сценарий банка А «надбавки до 10%» — 32 788 рублей, совпадает с калькулятором на сайте банка.</li>
+      <li><b>Минимальный остаток за месяц</b> выгоднее ежедневного, только если сумма на счёте не проседает ниже доли «ставка на ежедневный ÷ ставка на минимальный»: 5% / 6% — 83%, 13,2% / 14,2% — 93%. Пример из статьи: снятие 60 000 на два дня — месяц на минимальном остатке 1 200 рублей, на ежедневном около 1 234.</li>
+      <li><b>Подписка окупается</b>, если сумма на счёте больше, чем цена за год ÷ надбавка: банк А — 3 990 рублей, +1%, от 399 000; банк Б — 3 290 рублей, +2%, от 164 500 (цены — сайты банков, 26.09.2026).</li>
+      <li><b>Дата открытия у банка Б:</b> пополнение 28 октября вместо 1 октября сокращает приветственную ставку почти на месяц — около 1 900 рублей за год на 300 000.</li>
+      <li><b>Формула в статье</b> — приближённая, без капитализации; таблица и калькулятор — с ежемесячной капитализацией, поэтому числа в них чуть выше.</li>
+    </ul>
+  </section>
+
+  <p class="foot">Расчёт на типовом случае, а не консультация. Условия — по тарифам вашего банка на дату открытия счёта. Данные обновлены <span id="upd"></span>. <a href="../">Все калькуляторы</a></p>
+</div>
+
+<script>
+/* ================================================================
+   ДАННЫЕ — единственное место, которое нужно обновлять.
+   Калькулятор не хранит ставок банков: всё вводит читатель.
+   article — адрес статьи на Дзене (вписать после публикации).
+   ================================================================ */
+const DATA = {
+  article: 'https://dzen.ru/snizu_melkim',
+  updated: '28.09.2026',
+  overRate: 0.01,       // ставка сверх лимита по умолчанию, % годовых
+  horizonDays: 365
+};
+
+(function(){
+  const $ = id => document.getElementById(id);
+  const fmt = n => Math.round(n).toLocaleString('ru-RU').replace(/ | /g,' ');
+  const rub = n => fmt(n) + ' ₽';
+  const pct = (n,d=2) => n.toLocaleString('ru-RU',{minimumFractionDigits:d,maximumFractionDigits:d}) + '%';
+  const num = s => { const v = parseFloat(String(s).replace(/\s| | /g,'').replace(',','.')); return isFinite(v) ? v : NaN; };
+  const opt = id => { const t = $(id).value.trim(); return t === '' ? null : num(t); };
+  const MON = ['янв','фев','мар','апр','мая','июн','июл','авг','сен','окт','ноя','дек'];
+  const dstr = d => d.getDate() + ' ' + MON[d.getMonth()];
+
+  $('upd').textContent = DATA.updated;
+  $('article').href = DATA.article;
+
+  // Периоды начисления: [{days, welcome:boolean, label}]
+  function periods(mode, wm, openDate){
+    const out = []; let left = DATA.horizonDays;
+    if (mode === 'cal'){
+      let d = new Date(openDate.getTime()); d.setDate(d.getDate()+1);          // со дня после пополнения
+      let k = 1;
+      while (left > 0){
+        const end = new Date(d.getFullYear(), d.getMonth()+1, 0);             // последний день месяца
+        let days = Math.round((end - d)/864e5) + 1;
+        if (days > left) days = left;
+        const last = new Date(d.getTime()); last.setDate(last.getDate()+days-1);
+        out.push({days, welcome: k <= wm, label: dstr(d) + ' – ' + dstr(last)});
+        left -= days; d = new Date(end.getFullYear(), end.getMonth()+1, 1); k++;
+      }
+    } else {
+      for (let k = 1; k <= 12; k++){
+        out.push({days: DATA.horizonDays/12, welcome: k <= wm, label: k + '-й', approx: true});
+      }
+    }
+    return out;
+  }
+
+  function calc(){
+    const err = $('err'); err.hidden = true; err.textContent = '';
+    const show = (on) => { $('out').hidden = !on; $('empty').hidden = on; };
+    const amount = num($('amount').value);
+    const rate = num($('rate').value);
+    const w = opt('wrate'), wmRaw = opt('wmonths');
+    const calEl = document.querySelector('input[name="cal"]:checked');
+    const baseEl = document.querySelector('input[name="base"]:checked');
+    const mode = calEl ? calEl.value : 'open';
+    $('open-l').hidden = mode !== 'cal';
+
+    if (!(amount > 0) || !(rate >= 0) || $('rate').value.trim()==='' || !baseEl){ show(false); return; }
+    const fail = t => { err.textContent = t; err.hidden = false; show(false); };
+    if (rate > 100 || (w !== null && (isNaN(w) || w < 0 || w > 100))) return fail('Проверьте ставки: число от 0 до 100.');
+    if (w !== null && (wmRaw === null || !(wmRaw >= 1) || wmRaw > 12)) return fail('Укажите, сколько месяцев действует приветственная ставка: от 1 до 12.');
+    const wm = w === null ? 0 : Math.round(wmRaw);
+    let openDate = null;
+    if (mode === 'cal' && wm > 0){
+      if (!$('open').value) return fail('Для календарных месяцев укажите дату первого пополнения.');
+      const p = $('open').value.split('-').map(Number); openDate = new Date(p[0], p[1]-1, p[2]);
+    }
+    const wd = opt('wd') || 0, wdd = opt('wdd') || 0;
+    const lim = opt('lim'); const limr = opt('limr'); const overR = limr === null ? DATA.overRate : limr;
+    const sub = opt('sub'), subr = opt('subr');
+    if ([wd,wdd].some(isNaN) || (lim !== null && !(lim > 0)) || (sub !== null && isNaN(sub)) || (subr !== null && isNaN(subr))) return fail('В дополнительных полях — числа или пусто.');
+    if (wd > amount) return fail('Снимаете больше, чем лежит на счёте.');
+
+    const per = (mode === 'cal' && wm > 0) ? periods('cal', wm, openDate) : periods('open', wm, null);
+    const withSub = (sub !== null && subr !== null && subr > 0);
+
+    function run(useSub){
+      let bal = amount, total = 0; const rows = [];
+      for (const p of per){
+        const r = (p.welcome ? w : rate + (useSub ? subr : 0));
+        const days = p.days;
+        const part = (base, rr, dd) => {                      // проценты с учётом лимита
+          if (lim === null) return base * rr/100 * dd/365;
+          return Math.min(base, lim) * rr/100 * dd/365 + Math.max(base - lim, 0) * overR/100 * dd/365;
+        };
+        let inc, baseShown;
+        if (baseEl.value === 'min'){
+          const m = (wd > 0 && wdd > 0) ? bal - wd : bal;
+          inc = part(Math.max(m,0), r, days); baseShown = m;
+        } else {
+          const dd = Math.min(wdd, days);  // дни со снятием
+          inc = part(bal, r, days - dd) + part(Math.max(bal - wd,0), r, dd);
+          baseShown = (wd > 0 && dd > 0) ? null : bal;
+        }
+        total += inc; bal += inc;
+        rows.push({label:p.label, days: p.approx ? '≈30' : days, r, base: baseShown, inc, bal});
+      }
+      return {total, rows};
+    }
+
+    const res = run(false);
+    show(true);
+    $('k-inc').textContent = rub(res.total);
+    const eff = res.total / amount * 100;
+    $('k-eff').textContent = pct(eff);
+    if (w !== null && w > 0){
+      $('k-cmp-l').textContent = 'Против приветственной ' + pct(w, w % 1 ? 1 : 0).replace(',0%','%');
+      $('k-cmp').textContent = (w/eff).toLocaleString('ru-RU',{maximumFractionDigits:1}) + ' раза меньше';
+      if (eff >= w) $('k-cmp').textContent = 'не меньше';
+    } else { $('k-cmp-l').textContent = 'Против приветственной'; $('k-cmp').textContent = '—'; }
+
+    const tb = $('tb'); tb.innerHTML = '';
+    for (const x of res.rows){
+      const tr = document.createElement('tr');
+      tr.innerHTML = '<td>' + x.label + '</td><td>' + x.days + '</td><td>' + x.r.toLocaleString('ru-RU',{maximumFractionDigits:2}) + '%' + '</td><td>' + (x.base === null ? 'меньше на ' + fmt(wd) + ' ₽ на ' + wdd + ' дн.' : rub(x.base)) + '</td><td>' + rub(x.inc) + '</td><td>' + rub(x.bal) + '</td>';
+      tb.appendChild(tr);
+    }
+
+    const hint = $('hint'); const parts = [];
+    if (withSub){
+      const s2 = run(true);
+      const gain = s2.total - res.total;
+      const be = sub / (subr/100);
+      parts.push('Подписка за ' + rub(sub) + ' в год добавит <b>' + rub(gain) + '</b> процентов. ' + (gain >= sub ? 'Окупается.' : 'Не окупается: надбавка меньше цены подписки.') + ' Порог — сумма от <b>' + rub(be) + '</b> на счёте (цена ÷ надбавка), если приветственная ставка не мешает.');
+    }
+    if (baseEl.value === 'min' && wd > 0 && wdd > 0){
+      parts.push('При начислении на минимальный остаток снятие даже на один день уменьшает проценты за весь месяц. Если у банка есть вариант с ежедневным остатком, он выгоднее, когда ставка по нему больше, чем <b>' + pct(rate * (amount - wd) / amount) + '</b>.');
+    }
+    if (parts.length){ hint.className = 'hint ok'; hint.innerHTML = parts.join('<br><br>'); hint.hidden = false; } else hint.hidden = true;
+  }
+
+  document.querySelectorAll('#f input').forEach(el => el.addEventListener(el.type === 'radio' || el.type === 'date' ? 'change' : 'input', calc));
+  $('f').addEventListener('submit', e => e.preventDefault());
+})();
+</script>
+</body>
+</html>
