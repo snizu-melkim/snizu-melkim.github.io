@@ -1,0 +1,552 @@
+<!doctype html>
+<!--
+  Калькулятор «Налог на квартиру: сколько лет ещё +10%» — «Снизу мелким шрифтом»
+  Собран из шаблона калькулятора канала (v1, 26.09.2026). Меняющиеся данные — только в DATA.
+  Обслуживание: раз в год (сентябрь, перед рассылкой уведомлений) сверить ставки СПб со справочником ФНС
+  «Справочная информация о ставках и льготах по имущественным налогам»; после публикации статьи — её адрес в DATA.article.
+-->
+
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Калькулятор налога на квартиру: сколько вы платили бы без ограничения +10% в год и сколько лет налог ещё будет расти. Считает по налоговому уведомлению или по кадастровой стоимости, ставки Петербурга — автоматически.">
+<meta property="og:title" content="Калькулятор: налог на квартиру и ограничение +10% в год">
+<meta property="og:description" content="Сколько лет ещё налог на имущество будет расти на 10% — по вашему уведомлению.">
+<title>Налог на квартиру: сколько лет ещё +10%</title>
+<link rel="canonical" href="https://snizu-melkim.github.io/nalog-kvartira/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23188080'/%3E%3Ctext x='32' y='56' font-family='Arial' font-weight='700' font-size='52' text-anchor='middle' fill='%23fff'%3E*%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#F3F7F6; --surface:#FFFFFF; --ink:#152628; --muted:#5A7072; --rule:#D3E0DE;
+  --accent:#188080; --accent-ink:#FFFFFF; --accent-soft:#E0EFED; --tax:#A8462F; --tax-soft:#F6E7E2;
+  --field:#FFFFFF; --focus:#188080;
+  --sans:"Onest",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0E1718; --surface:#152122; --ink:#E3EDEC; --muted:#93AAAB; --rule:#29393A;
+    --accent:#4DB3AC; --accent-ink:#0E1718; --accent-soft:#1B3333; --tax:#E58A73; --tax-soft:#3A2420;
+    --field:#0F1B1C; --focus:#4DB3AC;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0E1718; --surface:#152122; --ink:#E3EDEC; --muted:#93AAAB; --rule:#29393A;
+  --accent:#4DB3AC; --accent-ink:#0E1718; --accent-soft:#1B3333; --tax:#E58A73; --tax-soft:#3A2420;
+  --field:#0F1B1C; --focus:#4DB3AC;
+}
+*{box-sizing:border-box}
+html{color-scheme:light}
+@media (prefers-color-scheme: dark){html{color-scheme:dark}}
+body{margin:0}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;padding:0 16px}
+.wrap{max-width:1080px;margin:0 auto;padding-block:28px 48px;display:flex;flex-direction:column;gap:28px}
+header{display:flex;flex-direction:column;gap:10px}
+.brand{text-decoration:none;display:flex;align-items:center;gap:10px;color:var(--muted);font-size:14px}
+.mark{width:28px;height:28px;border-radius:7px;background:#188080;display:grid;place-items:center;color:#fff;font:700 22px/1 var(--sans);padding-top:5px}
+h1{font-size:clamp(26px,4.2vw,38px);line-height:1.15;font-weight:700;margin:0;text-wrap:balance;letter-spacing:-.01em}
+.lead{margin:0;color:var(--muted);max-width:62ch}
+.lead a{color:var(--accent);text-underline-offset:3px}
+.grid{display:grid;grid-template-columns:minmax(0,360px) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:820px){.grid{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:20px}
+form{display:flex;flex-direction:column;gap:16px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+label{display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500}
+label small{font-weight:400;color:var(--muted);font-size:12.5px;line-height:1.35}
+input,select{font:500 16px var(--mono);color:var(--ink);background:var(--field);border:1px solid var(--rule);border-radius:8px;padding:10px 12px;width:100%;min-width:0}
+select{font-family:var(--sans)}
+input:focus-visible,button:focus-visible,select:focus-visible{outline:2px solid var(--focus);outline-offset:1px}
+fieldset{border:0;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+legend{font-size:14px;font-weight:500;padding:0;margin-bottom:6px}
+.seg{display:grid;grid-template-columns:1fr;gap:6px}
+.seg label{flex-direction:row;align-items:center;gap:10px;font-weight:400;border:1px solid var(--rule);border-radius:8px;padding:9px 12px;cursor:pointer}
+.seg input{width:auto;accent-color:var(--accent)}
+.seg label:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
+.sep{border-top:1px solid var(--rule);padding-top:14px;display:flex;flex-direction:column;gap:16px}
+.ylead{margin:0;font-size:12.5px;color:var(--muted);line-height:1.4}
+.empty{margin:0;padding:18px 20px;border:1px dashed var(--rule);border-radius:12px;color:var(--muted)}
+.out{display:flex;flex-direction:column;gap:20px}
+.err{color:var(--tax);font-size:14px;margin:0}
+.results{display:flex;flex-direction:column;gap:20px}
+.sum{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:520px){.sum{grid-template-columns:1fr}}
+.kpi{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:2px}
+.kpi span{font-size:13px;color:var(--muted)}
+.kpi b{font:500 clamp(22px,3vw,28px)/1.2 var(--mono);font-variant-numeric:tabular-nums}
+.kpi.main{background:var(--accent-soft);border-color:transparent}
+.kpi.main b{color:var(--accent)}
+.kpi.bad{background:var(--tax-soft);border-color:transparent}
+.kpi.bad b{color:var(--tax)}
+.hint{border-left:3px solid var(--tax);padding:4px 0 4px 14px;margin:0;max-width:70ch}
+.hint.ok{border-left-color:var(--accent)}
+.hint b{font-family:var(--mono);font-weight:500}
+.hint strong{font-weight:700}
+h2{font-size:18px;margin:0 0 10px;font-weight:700}
+.ast{color:var(--accent);font-family:var(--mono);font-weight:500;margin-left:1px}
+.fine{font-size:13.5px;color:var(--muted);max-width:78ch}
+.fine ol{margin:0;padding-left:1.4em;display:flex;flex-direction:column;gap:6px}
+.fine li::marker{content:"*" counter(list-item) "  ";font-family:var(--mono);color:var(--accent)}
+.fine b{color:var(--ink);font-weight:500}
+.foot{font-size:13px;color:var(--muted);border-top:1px solid var(--rule);padding-top:16px;max-width:78ch}
+details{border-top:1px solid var(--rule);padding-top:14px}
+summary{cursor:pointer;font-size:14px;font-weight:500;color:var(--accent)}
+details[open] summary{margin-bottom:14px}
+details .inner{display:flex;flex-direction:column;gap:16px}
+details.docs{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:14px 20px}
+details.docs .fine{max-width:none}
+details.docs h2{margin-top:6px}
+.tablebox{overflow-x:auto;background:var(--surface);border:1px solid var(--rule);border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:9px 12px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--rule)}
+th:first-child,td:first-child{text-align:left}
+thead th{font-weight:500;color:var(--muted);font-size:12.5px;white-space:normal;vertical-align:bottom;line-height:1.3}
+td{font-family:var(--mono);font-variant-numeric:tabular-nums}
+td:first-child{font-family:var(--sans)}
+tr:last-child td{border-bottom:0}
+td:first-child{white-space:normal}
+@media (max-width:520px){th,td{padding:8px 8px}.barcol{display:none}}
+tr.now td{background:var(--accent-soft)}
+tr.top td{font-weight:500}
+.foot a{color:var(--accent)}
+.bar{display:inline-block;height:10px;border-radius:3px;background:var(--accent);vertical-align:middle}
+.bar.full{background:var(--tax)}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <a class="brand" href="https://dzen.ru/snizu_melkim"><span class="mark" aria-hidden="true">*</span>Снизу мелким шрифтом · канал на Дзене</a>
+    <h1>Налог на квартиру: сколько лет он ещё будет расти на 10%</h1>
+    <p class="lead">Налог на имущество не может вырасти больше чем на 10% за год. Если по кадастровой стоимости он больше, его доплачивают ступеньками. Введите цифры из налогового уведомления или кадастровую стоимость, и калькулятор покажет полный налог и сколько ступенек ещё впереди.</p>
+    <p class="lead">Если что-то непонятно, прочитайте <a id="article" href="https://dzen.ru/snizu_melkim">статью на Дзене</a>: там всё разобрано на примерах.</p>
+  </header>
+
+  <div class="grid">
+    <section class="panel" aria-label="Условия">
+      <form id="f" novalidate>
+        <fieldset>
+          <legend>Что у вас есть</legend>
+          <div class="seg">
+            <label><input type="radio" name="mode" value="notice">Налоговое уведомление</label>
+            <label><input type="radio" name="mode" value="cadastre">Кадастровая стоимость и прошлогодний налог</label>
+          </div>
+        </fieldset>
+
+        <!-- Режим 1: по уведомлению -->
+        <div class="sep" id="m-notice" hidden>
+          <p class="ylead">Все цифры — из раздела «Расчёт налога на имущество физических лиц», строка по квартире.</p>
+          <label for="n_year">Налоговый период (год)
+            <input id="n_year" inputmode="numeric" autocomplete="off">
+          </label>
+          <label for="n_base">Налоговая база, руб.
+            <small>В уведомлении это кадастровая стоимость уже за вычетом 20 м².</small>
+            <input id="n_base" inputmode="decimal" autocomplete="off">
+          </label>
+          <div class="row2">
+            <label for="n_share">Доля в праве
+              <small>Например, 1/2 или 1.</small>
+              <input id="n_share" inputmode="text" autocomplete="off">
+            </label>
+            <label for="n_rate">Налоговая ставка, %
+              <input id="n_rate" inputmode="decimal" autocomplete="off">
+            </label>
+          </div>
+          <label for="n_months">Месяцев владения в году
+            <small>В уведомлении графа «Количество месяцев владения в году/12» — например, 12/12. Введите число сверху.</small>
+            <input id="n_months" inputmode="numeric" autocomplete="off">
+          </label>
+          <label for="n_sum">Сумма исчисленного налога, руб.
+            <input id="n_sum" inputmode="decimal" autocomplete="off">
+          </label>
+          <details>
+            <summary>Если в уведомлении есть коэффициент или льгота</summary>
+            <div class="inner">
+              <label for="n_k">Коэффициент к налоговому периоду
+                <small>Заполните, только если там стоит не 1.</small>
+                <input id="n_k" inputmode="decimal" autocomplete="off">
+              </label>
+              <label for="n_lg">Размер налоговых льгот, руб.
+                <input id="n_lg" inputmode="decimal" autocomplete="off">
+              </label>
+            </div>
+          </details>
+        </div>
+
+        <!-- Режим 2: по кадастровой стоимости -->
+        <div class="sep" id="m-cadastre" hidden>
+          <label for="c_kind">Что это
+            <select id="c_kind">
+              <option value="">— выберите —</option>
+              <option value="flat">Квартира</option>
+              <option value="room">Комната</option>
+              <option value="house">Жилой дом</option>
+            </select>
+          </label>
+          <div class="row2">
+            <label for="c_cad">Кадастровая стоимость, руб.
+              <input id="c_cad" inputmode="decimal" autocomplete="off">
+            </label>
+            <label for="c_area">Площадь, м²
+              <input id="c_area" inputmode="decimal" autocomplete="off">
+            </label>
+          </div>
+          <label for="c_region">Регион
+            <select id="c_region">
+              <option value="">— выберите —</option>
+              <option value="spb">Санкт-Петербург — ставки подставятся</option>
+              <option value="other">Другой регион — введу ставку сам</option>
+            </select>
+          </label>
+          <label for="c_rate" id="c_rate_l" hidden>Ставка налога, %
+            <small>Своя ставка — в справочнике ФНС «Справочная информация о ставках и льготах по имущественным налогам».</small>
+            <input id="c_rate" inputmode="decimal" autocomplete="off">
+          </label>
+          <div class="row2">
+            <label for="c_year">За какой год налог
+              <input id="c_year" inputmode="numeric" autocomplete="off">
+            </label>
+            <label for="c_prev">Налог за прошлый год, руб.
+              <small>Сумма из прошлогоднего уведомления.</small>
+              <input id="c_prev" inputmode="decimal" autocomplete="off">
+            </label>
+          </div>
+          <details>
+            <summary>Доля, месяцы владения, многодетность</summary>
+            <div class="inner">
+              <div class="row2">
+                <label for="c_share">Доля в праве
+                  <small>Если не вся квартира — например, 1/2.</small>
+                  <input id="c_share" inputmode="text" autocomplete="off">
+                </label>
+                <label for="c_months">Месяцев владения
+                  <small>Если меньше 12.</small>
+                  <input id="c_months" inputmode="numeric" autocomplete="off">
+                </label>
+              </div>
+              <label for="c_kids">Сколько детей, если их трое и больше
+                <small>С налога за 2026 год вычет больше на 5 м² (квартира, комната) или 7 м² (дом) на каждого ребёнка.</small>
+                <input id="c_kids" inputmode="numeric" autocomplete="off">
+              </label>
+            </div>
+          </details>
+        </div>
+
+        <p class="err" id="err" hidden></p>
+      </form>
+    </section>
+
+    <section class="results" aria-live="polite">
+      <p class="empty" id="empty">Выберите, что у вас есть, и заполните поля слева. Расчёт появится здесь.</p>
+      <div class="out" id="out" hidden>
+        <div>
+          <h2>Итог</h2>
+          <div class="sum">
+            <div class="kpi main"><span>Сколько лет ещё +10%</span><b id="k1">—</b></div>
+            <div class="kpi"><span>Налог без ограничения, в год</span><b id="k2">—</b></div>
+            <div class="kpi bad"><span>Ещё прибавится к налогу за год</span><b id="k3">—</b></div>
+          </div>
+        </div>
+        <p class="hint" id="hint" hidden></p>
+        <p class="hint" id="hint2" hidden></p>
+        <div>
+          <h2>Лестница по годам</h2>
+          <div class="tablebox">
+            <table>
+              <thead><tr><th>Налог за год</th><th>Сумма, ₽</th><th>Рост к прошлому году</th><th class="barcol"></th></tr></thead>
+              <tbody id="lad"></tbody>
+            </table>
+          </div>
+          <p class="ylead" style="margin-top:8px">Если кадастровая стоимость, ставка и доля не изменятся. Новые оценки могут сдвинуть верх лестницы<span class="ast">*4</span>.</p>
+        </div>
+        <div>
+          <h2>Откуда эти цифры</h2>
+          <div class="tablebox">
+            <table>
+              <thead><tr><th>Шаг</th><th>Значение</th></tr></thead>
+              <tbody id="tb"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="fine">
+          <h2>Мелким шрифтом</h2>
+          <ol>
+            <li><b>Как работает ограничение.</b> Налог сравнивают с прошлогодним, умноженным на 1,1, и берут меньшую сумму (Налоговый кодекс, ст. 408, п. 8.1). Ограничение не действует в год, когда у квартиры поменялись характеристики, например площадь после перепланировки, и для торгово-офисных объектов из перечня региона.</li>
+            <li><b>Новостройки.</b> В первый год налог по новому объекту умножают на 0,6 (ст. 408, п. 8.2). Как считается второй год, калькулятор не учитывает: разъяснения ФНС я не нашёл.</li>
+            <li><b>Льготы.</b> У пенсионеров и ряда других категорий одна квартира налогом не облагается (ст. 407). Если у вас льгота, этот расчёт не про вас.</li>
+            <li><b>Новые оценки.</b> В большинстве регионов следующая кадастровая оценка — в 2027 году, её стоимость начнут применять с 2028 года. В Петербурге оценки раз в два года: 2025 (с 2026 года) и 2027 (с 2028 года). Новая стоимость меняет «полный» налог, и лестница может стать длиннее.</li>
+            <li><b>Доля и месяцы.</b> По закону сравнение с прошлым годом делают до учёта доли и месяцев владения. Калькулятор считает по вашей доле: если доля и месяцы в прошлом и этом году одинаковые, результат тот же. Если квартира куплена в середине года, считайте по следующему полному году.</li>
+            <li><b>Ставки Петербурга</b> (закон Санкт-Петербурга № 643-109, ст. 3): квартиры и комнаты — до 7 млн включительно 0,1%, до 20 млн 0,15%, до 300 млн 0,2%; дома — до 5 млн 0,1%, до 10 млн 0,15%, до 20 млн 0,2%, до 300 млн 0,25%. Ступень выбирают по кадастровой стоимости всего объекта, а ставку применяют ко всей базе. Для квартир дороже 300 млн калькулятор не считает.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <details class="docs">
+    <summary>Документы, допущения и расчёт примера из статьи</summary>
+    <div class="inner fine">
+      <h2>Документы</h2>
+      <ol>
+        <li><b>Налоговый кодекс, ст. 408, п. 8.1</b> (ред. 389-ФЗ, с 01.01.2024): если налог по кадастровой стоимости больше прошлогоднего × 1,1, платится прошлогодний × 1,1. Применяется с третьего года применения кадастровой стоимости; не применяется, если характеристики объекта изменились в течение года (п. 5.1), и к торгово-офисным объектам из перечня (п. 7 и абз. 2 п. 10 ст. 378.2). <b>П. 8.2</b> — новый объект в первый год: налог × 0,6.</li>
+        <li><b>Налоговый кодекс, ст. 403</b> — база и вычеты: квартира 20 м², комната 10 м², дом 50 м²; п. 6.1 (с 2026 года) — ещё 5 м² квартиры / 7 м² дома на каждого ребёнка у семей с тремя детьми и больше. <b>Ст. 406</b> — ставки, <b>ст. 407</b> — льготы (пенсионеры и другие категории: один объект каждого вида без налога).</li>
+        <li><b>Федеральный закон № 269-ФЗ от 31.07.2020, ст. 6, ч. 6:</b> «В 2023 году во всех субъектах Российской Федерации должна быть проведена государственная кадастровая оценка зданий, помещений, сооружений, объектов незавершенного строительства, машино-мест».</li>
+        <li><b>Закон о государственной кадастровой оценке № 237-ФЗ</b> (ред. 28.12.2025): ст. 11, ч. 4 — очередная оценка через 4 года, в городах федерального значения по решению — через 2; ст. 18 — результаты применяются с 1 января года, следующего за вступлением в силу акта об утверждении; ст. 21 — исправление ошибок: подать может любое лицо в течение 5 лет со дня внесения стоимости в ЕГРН, лично, почтой, через МФЦ или Госуслуги; при снижении стоимость применяется со дня начала применения ошибочной (ст. 18, ч. 2, п. 3 «в»); ст. 22.1 — стоимость, равная рыночной (нужен отчёт оценщика).</li>
+        <li><b>Форма налогового уведомления</b> (КНД 1165025), приказ ФНС от 27.09.2022 № ЕД-7-21/866@: в разделе по налогу на имущество — налоговая база (кадастровая стоимость за вычетом), доля, ставка, месяцы владения/12, коэффициент к налоговому периоду, льготы, сумма; сноска к сумме — «исчислена в соответствии со статьёй 408».</li>
+        <li><b>Закон Санкт-Петербурга от 26.11.2014 № 643-109, ст. 3</b> (ред. 21.06.2023 № 374-69) — ставки; сверено со справочником ФНС «Справочная информация о ставках и льготах по имущественным налогам» за 2025 и 2026 годы (29.09.2026).</li>
+        <li><b>Петербург, кадастровая оценка:</b> приказы Комитета имущественных отношений от 09.11.2023 № 199-п (оценка 2023 года, применяется с 2024), от 13.11.2025 № 209-п (оценка 2025 года, с 2026; квартиры +5,7% — сообщение комитета от 19.11.2025), от 19.03.2026 № 39-п (оценка 2027 года). Отчёты СПб ГБУ «Городское управление кадастровой оценки»: по состоянию на 01.01.2018 — табл. 4.41 (2 248 210 жилых помещений, 12 075 286 млн руб.); по состоянию на 01.01.2023, № 3/2023 от 06.10.2023, том 1 — табл. 4.25 (2 630 152 жилых помещения, 25 791 млрд руб.), разд. 3.9 (все объекты — «в нормальном состоянии»), разд. 4.3.2 (количество комнат).</li>
+      </ol>
+      <h2>Допущения примера из статьи</h2>
+      <ol>
+        <li>Пример 3 000 → 6 000 руб. — условный, на круглых числах; суммы округлены до рубля на каждом шаге. Стоимость в примере не меняется.</li>
+        <li>Средняя стоимость жилого помещения (5,37 и 9,81 млн руб.) — сумма ÷ число помещений из двух отчётов. Наборы объектов разные (в 2023 году больше новостроек), среднее включает комнаты и выше медианы — это сравнение средних, а не рост у каждой квартиры.</li>
+        <li>Квартира 33,5 м² в Шушарах — кадастровая стоимость 6 756 149,91 руб. по справочной информации Росреестра на 29.09.2026; налог — полный, без месяцев владения и коэффициента первого года.</li>
+        <li>Таблица «найди себя» — степени 1,1: 1,10; 1,21; 1,33; 1,46; 1,61; 1,77; 1,95; 2,14; 2,36; 2,59 → 1…10 лет.</li>
+        <li>В статье — упрощённая формула для квартиры целиком и 12 месяцев: база × ставка ÷ 100. Полная (так считает калькулятор): база × доля × ставка ÷ 100 × месяцы / 12 × коэффициент − льготы.</li>
+      </ol>
+      <h2>Чего этот расчёт не показывает</h2>
+      <ol>
+        <li>Льготы: у пенсионеров и ряда других категорий одна квартира налогом не облагается.</li>
+        <li>В других регионах свои ставки и вычеты; города могут увеличивать вычеты.</li>
+        <li>Как считается второй год после коэффициента 0,6 у новостроек: разъяснения ФНС я не нашёл.</li>
+        <li>Новую оценку 2027 года: насколько она сдвинет верх лестницы, пока неизвестно.</li>
+      </ol>
+    </div>
+  </details>
+
+  <p class="foot">Расчёт на типовом случае, а не консультация. Налоговый кодекс, ст. 403, 406, 407, 408; закон Санкт-Петербурга от 26.11.2014 № 643-109. Данные обновлены <span id="upd"></span>. <a href="../">Все калькуляторы</a></p>
+</div>
+
+<script>
+/* ================================================================
+   ДАННЫЕ — единственное место, которое нужно обновлять.
+   spb — ставки налога на имущество физлиц в Санкт-Петербурге (закон № 643-109, ст. 3),
+         сверены со справочником ФНС за 2025 и 2026 годы 29.09.2026. Сверять раз в год, в сентябре.
+         upTo — верхняя граница кадастровой стоимости включительно, rate — ставка, %.
+   deduction — вычеты, м² (НК РФ, ст. 403); kids — доп. вычет на ребёнка при 3+ детях (п. 6.1), с kidsFrom.
+   ================================================================ */
+const DATA = {
+  article: 'https://dzen.ru/snizu_melkim',   // адрес статьи — вписать после публикации
+  updated: '29.09.2026',
+  cap: 1.1,
+  deduction: { flat: 20, room: 10, house: 50 },
+  kids: { flat: 5, room: 5, house: 7 },
+  kidsFrom: 2026,
+  spb: {
+    flat:  [ {upTo: 7e6, rate: 0.1}, {upTo: 20e6, rate: 0.15}, {upTo: 300e6, rate: 0.2} ],
+    room:  [ {upTo: 7e6, rate: 0.1}, {upTo: 20e6, rate: 0.15}, {upTo: 300e6, rate: 0.2} ],
+    house: [ {upTo: 5e6, rate: 0.1}, {upTo: 10e6, rate: 0.15}, {upTo: 20e6, rate: 0.2}, {upTo: 300e6, rate: 0.25} ]
+  },
+  maxYears: 30
+};
+
+(function(){
+  const $ = id => document.getElementById(id);
+  const fmt = n => Math.round(n).toLocaleString('ru-RU').replace(/ | /g,' ');
+  const rub = n => fmt(n) + ' ₽';
+  const pct = (n,d=3) => n.toLocaleString('ru-RU',{maximumFractionDigits:d}) + '%';
+  const num = s => { const v = parseFloat(String(s).replace(/\s| | /g,'').replace(',','.')); return isFinite(v) ? v : NaN; };
+  const frac = s => {
+    const str = String(s).trim().replace(/\s/g,'');
+    if (!str) return NaN;
+    const m = str.match(/^(\d+)\/(\d+)$/);
+    if (m){ const a = +m[1], b = +m[2]; return b > 0 ? a/b : NaN; }
+    return num(str);
+  };
+  const yearsWord = n => {
+    const a = n % 10, b = n % 100;
+    if (a === 1 && b !== 11) return 'год';
+    if (a >= 2 && a <= 4 && (b < 12 || b > 14)) return 'года';
+    return 'лет';
+  };
+
+  $('upd').textContent = DATA.updated;
+  $('article').href = DATA.article;
+
+  function spbRate(kind, cad){
+    const t = DATA.spb[kind];
+    for (const s of t) if (cad <= s.upTo) return s;
+    return null;
+  }
+
+  function ladder(startYear, startTax, full){
+    // startTax — налог в году startYear; дальше по +10%, пока не догонит полный
+    const rows = [{year: startYear, tax: startTax, now: true}];
+    let t = startTax, y = startYear;
+    while (t < full - 0.5 && rows.length < DATA.maxYears){
+      y++; t = Math.min(Math.round(t * DATA.cap), full);
+      rows.push({year: y, tax: t});
+    }
+    return rows;
+  }
+
+  function stepsLeft(actual, full){
+    if (!(full > actual * 1.0005)) return 0;
+    return Math.ceil(Math.log(full/actual) / Math.log(DATA.cap) - 1e-9);
+  }
+
+  function modeUI(){
+    const m = document.querySelector('input[name="mode"]:checked');
+    $('m-notice').hidden = !(m && m.value === 'notice');
+    $('m-cadastre').hidden = !(m && m.value === 'cadastre');
+    $('c_rate_l').hidden = $('c_region').value !== 'other';
+  }
+
+  function render(r){
+    const show = on => { $('out').hidden = !on; $('empty').hidden = on; };
+    show(true);
+    const left = r.left;
+    $('k1').textContent = left === 0 ? 'уже наверху' : left + ' ' + yearsWord(left);
+    $('k2').textContent = rub(r.full);
+    $('k3').textContent = left === 0 ? '0 ₽' : '+' + rub(r.full - r.actual);
+
+    const h = $('hint');
+    h.hidden = false;
+    if (left === 0){
+      h.className = 'hint ok';
+      h.innerHTML = r.actual > r.full * 1.0005
+        ? 'Налог в уведомлении <strong>больше</strong> расчётного полного. Проверьте цифры: возможно, в графах есть коэффициент или льгота, или стоимость у квартиры менялась в течение года.'
+        : 'Налог уже равен полному: вы на <strong>верхней ступеньке</strong>. Пока кадастровая стоимость и ставка не изменятся, он расти не будет.';
+    } else {
+      const lastYear = r.rows[r.rows.length-1].year;
+      h.className = 'hint';
+      h.innerHTML = 'Полный налог больше того, что вы платите, в <b>' + (r.full/r.actual).toLocaleString('ru-RU',{maximumFractionDigits:2}) + '</b> раза. '
+        + 'Значит, работает ограничение: налог будет расти на 10% в год ещё <strong>' + left + ' ' + yearsWord(left) + '</strong> и догонит полный в налоге за <b>' + lastYear + '</b> год.';
+    }
+
+    const h2 = $('hint2');
+    h2.hidden = !r.note;
+    if (r.note){ h2.className = 'hint'; h2.innerHTML = r.note; }
+
+    const lad = $('lad'); lad.innerHTML = '';
+    const max = r.full;
+    r.rows.forEach((row, i) => {
+      const prev = i ? r.rows[i-1].tax : null;
+      const tr = document.createElement('tr');
+      if (row.now) tr.className = 'now';
+      if (i === r.rows.length - 1 && i > 0) tr.className = 'top';
+      const w = Math.max(4, Math.round(120 * row.tax / max));
+      tr.innerHTML = '<td>' + row.year + (row.now ? ' · ' + r.nowLabel : '') + '</td>'
+        + '<td>' + fmt(row.tax) + '</td>'
+        + '<td>' + (prev ? '+' + fmt(row.tax - prev) : '—') + '</td>'
+        + '<td class="barcol"><span class="bar' + (row.tax >= max - 0.5 ? ' full' : '') + '" style="width:' + w + 'px"></span></td>';
+      lad.appendChild(tr);
+    });
+
+    const tb = $('tb'); tb.innerHTML = '';
+    r.steps.forEach(([a,b]) => {
+      const tr = document.createElement('tr'); tr.innerHTML = '<td>' + a + '</td><td>' + b + '</td>'; tb.appendChild(tr);
+    });
+  }
+
+  function calc(){
+    modeUI();
+    const err = $('err'); err.hidden = true; err.textContent = '';
+    const hide = () => { $('out').hidden = true; $('empty').hidden = false; };
+    const fail = msg => { hide(); err.textContent = msg; err.hidden = false; };
+    const m = document.querySelector('input[name="mode"]:checked');
+    if (!m){ hide(); return; }
+
+    if (m.value === 'notice'){
+      const year = num($('n_year').value), base = num($('n_base').value), share = frac($('n_share').value),
+            rate = num($('n_rate').value), months = num($('n_months').value), sum = num($('n_sum').value);
+      const kRaw = $('n_k').value.trim(), lgRaw = $('n_lg').value.trim();
+      const k = kRaw ? num(kRaw) : 1, lg = lgRaw ? num(lgRaw) : 0;
+      if (!(year >= 2000 && year <= 2100) || !(base > 0) || !(share > 0) || !(rate > 0) || !(months >= 1) || !(sum > 0)){ hide(); return; }
+      if (share > 1) return fail('Доля не может быть больше 1. Введите, например, 1/2.');
+      if (months > 12) return fail('Месяцев владения не может быть больше 12.');
+      if (!(k > 0) || !(lg >= 0)) return fail('Проверьте коэффициент и льготу.');
+      if (rate > 3) return fail('Ставка больше 3% — проверьте: для жилья ставки обычно 0,1–0,3%.');
+      const full = Math.max(0, base * share * rate/100 * months/12 * k - lg);
+      const left = stepsLeft(sum, full);
+      const rows = left ? ladder(year, sum, full) : [{year, tax: sum, now: true}];
+      render({
+        full, actual: sum, left, rows, nowLabel: 'в уведомлении',
+        steps: [
+          ['Налоговая база', rub(base)],
+          ['× доля', String(Math.round(share*10000)/10000).replace('.',',')],
+          ['× ставка', pct(rate)],
+          ['× месяцы владения', months + '/12'],
+          ...(k !== 1 ? [['× коэффициент', String(k).replace('.',',')]] : []),
+          ...(lg ? [['− льготы', rub(lg)]] : []),
+          ['= налог без ограничения', rub(full)],
+          ['Сумма в уведомлении', rub(sum)],
+          ['Во сколько раз полный больше', left ? (full/sum).toLocaleString('ru-RU',{maximumFractionDigits:3}) : '—'],
+          ['Лет роста по +10% впереди', String(left)]
+        ]
+      });
+      return;
+    }
+
+    // Режим 2: по кадастровой стоимости
+    const kind = $('c_kind').value, cad = num($('c_cad').value), area = num($('c_area').value),
+          region = $('c_region').value, year = num($('c_year').value), prev = num($('c_prev').value);
+    const shareRaw = $('c_share').value.trim(), monthsRaw = $('c_months').value.trim(), kidsRaw = $('c_kids').value.trim();
+    const share = shareRaw ? frac(shareRaw) : 1, months = monthsRaw ? num(monthsRaw) : 12, kids = kidsRaw ? num(kidsRaw) : 0;
+    if (!kind || !(cad > 0) || !(area > 0) || !region || !(year >= 2000 && year <= 2100) || !(prev > 0)){ hide(); return; }
+    let rate, tierNote = '';
+    if (region === 'spb'){
+      const s = spbRate(kind, cad);
+      if (!s) return fail('Для объектов дороже 300 млн ₽ калькулятор не считает: там другая ставка.');
+      rate = s.rate;
+      const t = DATA.spb[kind], i = t.indexOf(s);
+      if (i < t.length - 1){
+        const gap = (s.upTo - cad) / cad * 100;
+        if (gap <= 10){
+          const next = t[i+1].rate;
+          const baseAt = s.upTo * Math.max(0, area - DATA.deduction[kind]) / area;
+          tierNote = 'До порога <b>' + fmt(s.upTo/1e6) + ' млн</b> кадастровой стоимости не хватает <b>' + gap.toLocaleString('ru-RU',{maximumFractionDigits:1}) + '%</b>. '
+            + 'Если после новой оценки стоимость его перешагнёт, ставка станет <b>' + pct(next) + '</b> вместо ' + pct(rate) + ', и полный налог — около <b>' + rub(baseAt * next/100 * share * months/12) + '</b> в год: ставку применяют ко всей базе.';
+        }
+      }
+    } else {
+      rate = num($('c_rate').value);
+      if (!(rate > 0)){ hide(); return; }
+      if (rate > 3) return fail('Ставка больше 3% — проверьте: для жилья ставки обычно 0,1–0,3%.');
+    }
+    if (!(share > 0) || share > 1) return fail('Доля — от 0 до 1, например 1/2.');
+    if (!(months >= 1) || months > 12) return fail('Месяцев владения — от 1 до 12.');
+    if (kidsRaw && !(kids >= 0)) return fail('Проверьте число детей.');
+    const kidsDed = (kids >= 3 && year >= DATA.kidsFrom) ? kids * DATA.kids[kind] : 0;
+    const ded = DATA.deduction[kind] + kidsDed;
+    const base = Math.max(0, cad * (area - ded) / area);
+    const full = base * rate/100 * share * months/12;
+    const capd = prev * DATA.cap;
+    const thisYear = Math.min(full, capd);
+    const left = stepsLeft(thisYear, full);
+    const rows = [{year: year - 1, tax: prev}].concat(ladder(year, Math.round(thisYear), full));
+    let note = tierNote;
+    if (kids >= 3 && year < DATA.kidsFrom) note = (note ? note + '<br>' : '') + 'Дополнительный вычет для семей с тремя детьми и больше действует с налога за 2026 год.';
+    render({
+      full, actual: thisYear, left, rows, nowLabel: 'этот год',
+      note,
+      steps: [
+        ['Кадастровая стоимость', rub(cad)],
+        ['Вычет', ded + ' м² из ' + String(area).replace('.',',') + ' м²' + (kidsDed ? ' (в т.ч. ' + kidsDed + ' м² за детей)' : '')],
+        ['= налоговая база', rub(base)],
+        ['× ставка' + (region === 'spb' ? ' (Петербург)' : ''), pct(rate)],
+        ...(share !== 1 ? [['× доля', String(Math.round(share*10000)/10000).replace('.',',')]] : []),
+        ...(months !== 12 ? [['× месяцы владения', months + '/12']] : []),
+        ['= налог без ограничения', rub(full)],
+        ['Прошлогодний налог × 1,1', rub(capd)],
+        ['Налог за ' + year + ' год — меньшее из двух', rub(thisYear)],
+        ['Лет роста по +10% после этого года', String(left)]
+      ]
+    });
+    // В режиме 2 первая строка лестницы — прошлый год, помечаем текущий
+    const lad = $('lad').rows;
+    if (lad.length){ lad[0].className = ''; lad[0].cells[0].textContent = (year - 1) + ' · прошлый год'; }
+  }
+
+  document.querySelectorAll('#f input, #f select').forEach(el =>
+    el.addEventListener(el.type === 'radio' || el.tagName === 'SELECT' ? 'change' : 'input', calc));
+  $('f').addEventListener('submit', e => e.preventDefault());
+})();
+</script>
+</body>
+</html>
